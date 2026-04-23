@@ -1,2 +1,82 @@
-<p>login works!</p>
+<!-- AUTH SECTION -->
+<div class="" style="background:#fefae0;padding:80px 0;">
+    <div class="container">
+        <div class="auth-card">
+            <div class="text-center mb-4">
+                <i class="fa-solid fa-seedling" style="font-size:2.2rem;color:#2d6a4f;"></i>
+                <h3 style="font-weight:800;margin-top:10px;" id="authTitle">Welcome Back</h3>
+                <p style="color:#8aab8f;font-size:0.9rem;" id="authSubtitle">Sign in to your FarmDirect account</p>
+            </div>
+            <!-- Role Selection -->
+            <div class="d-flex gap-2 mb-4" id="authRoleSelector">
+                <button [ngClass]="{'selected':isLoginActive}" class="auth-role-btn selected" id="roleCustomerBtn"
+                    (click)="selectAuthAction('login')"><i class="fa-solid fa-user me-2"></i>Login</button>
+                <button [ngClass]="{'selected':!isLoginActive}" class="auth-role-btn" id="roleFarmerBtn"
+                    (click)="selectAuthAction('register')"><i class="fa-solid fa-tractor me-2"></i>Register</button>
+            </div>
+            @if(isLoginActive){
+            <!-- Login Form -->
+            <form id="loginForm">
+                <div class="mb-3">
+                    <label class="form-label-custom">Email Address</label>
+                    <input type="email" class="form-control-custom" [(ngModel)]="loginObj.email" name="email"
+                        id="loginEmail" placeholder="you@example.com" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label-custom">Password</label>
+                    <input type="password" class="form-control-custom" [(ngModel)]="loginObj.password" name="password"
+                        id="loginPassword" placeholder="Your password" />
+                </div>
+                <button class="btn-auth" (click)="onLogin()">Sign In <i
+                        class="fa-solid fa-arrow-right ms-2"></i></button>
+                <div class="auth-toggle">Already have an account? <a (click)="selectAuthAction('register')">Create one</a>
+                </div>
+            </form>
 
+            }
+            @else{
+            <!-- Register Form -->
+            <form id="registerForm">
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <label class="form-label-custom">Full Name</label>
+                        <input type="text" class="form-control-custom" id="regName" [(ngModel)]="registerObj.name" name="name" placeholder="Your full name" />
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label class="form-label-custom">Email Address</label>
+                        <input type="email" class="form-control-custom" id="regEmail" [(ngModel)]="registerObj.email" name="name" placeholder="you@example.com" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <label class="form-label-custom">Password</label>
+                        <input type="password" class="form-control-custom" [(ngModel)]="registerObj.password" name="password" id="regPassword" placeholder="Create a password" />
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label class="form-label-custom">Phone Number</label>
+                        <input type="tel" class="form-control-custom" id="regPhone" [(ngModel)]="registerObj.phone" name="phone" placeholder="Your phone number" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <label class="form-label-custom">Address</label>
+                        <input type="text" class="form-control-custom" id="regAddress" [(ngModel)]="registerObj.address" name="address" placeholder="Your address" />
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label class="form-label-custom">Role</label>
+                        <select  class="form-control-custom" id="regRoleId"  [(ngModel)]="registerObj.roleId" name="roleId">
+                            <option [ngValue]="null">Select Role</option>
+                            <option  *ngFor="let role of roles" [ngValue]="role.roleId">{{role.roleName}}</option>
+                        </select>
+                    </div> 
+                </div>
+                <button class="btn-auth w-100 mt-2" (click)="createAccount()">Create Account <i class="fa-solid fa-check ms-2"></i></button>
+                <div class="auth-toggle">Already have an account? <a (click)="selectAuthAction('login')">Sign in</a></div>
+            </form>
+
+            }
+
+
+        </div>
+    </div>
+</div>

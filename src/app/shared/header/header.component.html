@@ -1,0 +1,52 @@
+<!-- NAVBAR -->
+<nav id="mainNav" class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">
+      <i class="fa-solid fa-seedling me-2"></i>Farm<span>Direct</span>
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <i class="fa-solid fa-bars text-white"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto gap-1">
+        <li class="nav-item"><a class="nav-link-custom" routerLink="/">Home</a></li>
+        <li class="nav-item"><a class="nav-link-custom" routerLink="/categories">Categories</a></li>
+        <li class="nav-item"><a class="nav-link-custom" routerLink="/shop">Shop</a></li>
+
+      </ul>
+      <div class="d-flex align-items-center gap-3 mt-2 mt-lg-0">
+        <!-- Show when user is NOT logged in -->
+        
+        @if(loggedUserData){
+
+        <!-- <ng-template> -->
+        <div class="user-info-chip">
+          <i class="fa-solid fa-user me-2"></i>
+          <span>{{loggedUserData.name}}</span>
+        </div>
+        <button class="btn-logout" (click)="logOFF()">Logout</button>
+        <!-- </ng-template> -->
+
+        }
+        @else{
+
+        <!-- <ng-container> -->
+        <button class="btn-role" routerLink="/login">Login</button>
+        <button class="btn-role" routerLink="/register">Register</button>
+        <!-- </ng-container> -->
+
+        }
+
+
+        <!-- Show when user IS logged in -->
+
+
+        <div class="cart-badge ms-2">
+          <i class="fa-solid fa-basket-shopping"></i>
+          <span class="badge" id="cartCount">0</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,43 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+app-header {
+  flex-shrink: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+router-outlet {
+  flex: 1;
+  display: block;
+  overflow-y: auto;
+  margin-top: 60px;
+}
+
+app-footer {
+  flex-shrink: 0;
+}
+
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--green-light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--green);
+}

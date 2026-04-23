@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FarmDirect - Fresh & Natural</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green: #2d6a4f;
+      --green-dark: #1b4332;
+      --green-light: #52b788;
+      --cream: #fefae0;
+      --cream-dark: #f0e9c5;
+      --brown: #774936;
+      --brown-light: #a0614d;
+      --orange: #e76f51;
+      --orange-light: #f4a261;
+      --text-dark: #1a2e1a;
+      --text-mid: #4a6550;
+      --text-light: #8aab8f;
+      --white: #ffffff;
+      --shadow: 0 4px 24px rgba(45,106,79,0.10);
+      --shadow-hover: 0 8px 32px rgba(45,106,79,0.18);
+      --radius: 14px;
+      --radius-sm: 8px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Poppins', sans-serif; background: var(--cream); color: var(--text-dark); scroll-behavior: smooth; }
+    a { text-decoration: none; color: inherit; }
+
+    /* SCROLLBAR */
+    ::-webkit-scrollbar { width: 7px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--green-light); border-radius: 10px; }
+
+    /* NAVBAR */
+    #mainNav {
+      background: var(--green-dark);
+      position: sticky; top: 0; z-index: 1000;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+    }
+    #mainNav .navbar-brand {
+      font-size: 1.5rem; font-weight: 800; color: var(--cream);
+      letter-spacing: -0.5px;
+    }
+    #mainNav .navbar-brand span { color: var(--orange); }
+    .nav-link-custom {
+      color: rgba(254,250,224,0.80) !important;
+      font-weight: 500; font-size: 0.92rem;
+      padding: 6px 14px !important; border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .nav-link-custom:hover, .nav-link-custom.active {
+      color: var(--cream) !important;
+      background: rgba(255,255,255,0.10);
+    }
+    .btn-role {
+      border: 1.5px solid var(--orange);
+      color: var(--orange); background: transparent;
+      border-radius: 20px; padding: 4px 16px;
+      font-size: 0.85rem; font-weight: 600;
+      transition: all 0.2s; cursor: pointer;
+    }
+    .btn-role:hover, .btn-role.active-role {
+      background: var(--orange); color: var(--white);
+    }
+    .cart-badge {
+      position: relative; cursor: pointer;
+      color: var(--cream); font-size: 1.2rem;
+    }
+    .cart-badge .badge {
+      position: absolute; top: -8px; right: -10px;
+      background: var(--orange); color: white;
+      font-size: 0.65rem; border-radius: 50%;
+      width: 18px; height: 18px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* SECTIONS */
+    .page-section { display: none; }
+    .page-section.active { display: block; }
+
+    /* HERO */
+    #heroSection {
+      min-height: 88vh;
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 60%, var(--green-light) 100%);
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    #heroSection::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url('https://images.pexels.com/photos/1459339/pexels-photo-1459339.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover no-repeat;
+      opacity: 0.18;
+    }
+    .hero-content { position: relative; z-index: 2; }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(231,111,81,0.15);
+      border: 1px solid var(--orange);
+      color: var(--orange-light);
+      border-radius: 20px; padding: 4px 16px;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 1px;
+      text-transform: uppercase; margin-bottom: 18px;
+    }
+    .hero-title {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 800; color: var(--cream);
+      line-height: 1.12; margin-bottom: 20px;
+    }
+    .hero-title span { color: var(--orange); }
+    .hero-sub {
+      color: rgba(254,250,224,0.78);
+      font-size: 1.1rem; font-weight: 400;
+      max-width: 500px; margin-bottom: 36px;
+    }
+    .btn-hero-primary {
+      background: var(--orange); color: white;
+      border: none; border-radius: 30px;
+      padding: 13px 32px; font-size: 1rem;
+      font-weight: 700; letter-spacing: 0.3px;
+      transition: all 0.25s; box-shadow: 0 4px 20px rgba(231,111,81,0.35);
+    }
+    .btn-hero-primary:hover { background: var(--orange-light); transform: translateY(-2px); }
+    .btn-hero-secondary {
+      background: transparent; color: var(--cream);
+      border: 2px solid rgba(254,250,224,0.5);
+      border-radius: 30px; padding: 11px 28px;
+      font-size: 1rem; font-weight: 600;
+      transition: all 0.25s; margin-left: 12px;
+    }
+    .btn-hero-secondary:hover { border-color: var(--cream); background: rgba(254,250,224,0.08); }
+    .hero-stats {
+      display: flex; gap: 32px; margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(254,250,224,0.18);
+    }
+    .hero-stat-num { font-size: 1.7rem; font-weight: 800; color: var(--cream); }
+    .hero-stat-label { font-size: 0.78rem; color: rgba(254,250,224,0.60); text-transform: uppercase; letter-spacing: 1px; }
+    .hero-img-wrap {
+      position: relative; z-index: 2;
+      display: flex; justify-content: center; align-items: center;
+    }
+    .hero-img-main {
+      width: 100%; max-width: 480px;
+      border-radius: 24px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+      object-fit: cover; height: 400px;
+    }
+    .hero-img-float {
+      position: absolute; bottom: -20px; left: -20px;
+      width: 140px; height: 140px;
+      border-radius: 16px; border: 4px solid var(--cream);
+      object-fit: cover;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    }
+
+    /* SECTION HEADERS */
+    .section-label {
+      display: inline-block;
+      color: var(--green); font-size: 0.78rem;
+      font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
+      font-weight: 800; color: var(--text-dark);
+      line-height: 1.18; margin-bottom: 12px;
+    }
+    .section-sub { color: var(--text-mid); font-size: 1rem; max-width: 520px; }
+
+    /* CATEGORIES */
+    #categoriesSection { background: var(--white); padding: 80px 0; }
+    .category-card {
+      background: var(--cream);
+      border-radius: var(--radius);
+      padding: 28px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.28s;
+      border: 2px solid transparent;
+      position: relative; overflow: hidden;
+    }
+    .category-card::before {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+      background: var(--green); transform: scaleX(0);
+      transition: transform 0.28s;
+    }
+    .category-card:hover, .category-card.active-cat {
+      border-color: var(--green);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-4px);
+    }
+    .category-card:hover::before, .category-card.active-cat::before { transform: scaleX(1); }
+    .category-icon {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: var(--green); color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin: 0 auto 14px;
+    }
+    .category-card.active-cat .category-icon { background: var(--orange); }
+    .category-name { font-weight: 600; font-size: 0.95rem; color: var(--text-dark); }
+    .category-count { font-size: 0.78rem; color: var(--text-light); margin-top: 4px; }
+
+    /* PRODUCTS */
+    #productsSection { background: var(--cream); padding: 80px 0; }
+    .search-bar-wrap {
+      background: var(--white);
+      border-radius: 50px; padding: 8px 12px 8px 20px;
+      display: flex; align-items: center;
+      box-shadow: var(--shadow);
+      max-width: 540px;
+    }
+    .search-bar-wrap input {
+      border: none; outline: none; flex: 1;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem; background: transparent;
+      color: var(--text-dark);
+    }
+    .search-bar-wrap input::placeholder { color: var(--text-light); }
+    .btn-search {
+      background: var(--green); color: white;
+      border: none; border-radius: 40px;
+      padding: 8px 20px; font-size: 0.88rem;
+      font-weight: 600; cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-search:hover { background: var(--green-dark); }
+    .filter-chip {
+      display: inline-block; padding: 5px 16px;
+      border-radius: 20px; font-size: 0.82rem;
+      font-weight: 500; cursor: pointer;
+      border: 1.5px solid var(--cream-dark);
+      color: var(--text-mid); background: var(--white);
+      transition: all 0.2s; margin: 4px;
+    }
+    .filter-chip:hover, .filter-chip.active-filter {
+      background: var(--green); color: white; border-color: var(--green);
+    }
+    .product-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: all 0.28s;
+      cursor: pointer;
+      height: 100%;
+    }
+    .product-card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-5px);
+    }
+    .product-img-wrap { position: relative; overflow: hidden; height: 200px; }
+    .product-img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.4s;
+    }
+    .product-card:hover .product-img { transform: scale(1.06); }
+    .product-badge {
+      position: absolute; top: 12px; left: 12px;
+      background: var(--green); color: white;
+      font-size: 0.7rem; font-weight: 700;
+      padding: 4px 10px; border-radius: 20px;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .product-badge.organic { background: var(--green); }
+    .product-badge.non-organic { background: var(--brown); }
+    .product-badge.out-of-stock { background: #9e9e9e; }
+    .product-body { padding: 18px; }
+    .product-category-tag {
+      font-size: 0.72rem; font-weight: 600;
+      color: var(--green-light); text-transform: uppercase;
+      letter-spacing: 1px; margin-bottom: 6px;
+    }
+    .product-name { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+    .product-farmer { font-size: 0.78rem; color: var(--text-light); margin-bottom: 10px; }
+    .product-farmer i { color: var(--green-light); margin-right: 4px; }
+    .product-price { font-size: 1.2rem; font-weight: 800; color: var(--green); }
+    .product-price span { font-size: 0.78rem; color: var(--text-light); font-weight: 400; }
+    .product-availability {
+      display: inline-block;
+      font-size: 0.72rem; font-weight: 600;
+      padding: 3px 10px; border-radius: 12px;
+      margin-top: 8px;
+    }
+    .avail-in-stock { background: rgba(82,183,136,0.12); color: #2d8f5e; }
+    .avail-limited { background: rgba(244,162,25,0.12); color: #c07e00; }
+    .avail-out { background: rgba(150,150,150,0.12); color: #666; }
+    .btn-add-cart {
+      background: var(--green); color: white;
+      border: none; border-radius: var(--radius-sm);
+      padding: 9px 0; font-size: 0.88rem;
+      font-weight: 600; width: 100%;
+      margin-top: 12px; cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-add-cart:hover { background: var(--green-dark); }
+    .btn-add-cart:disabled { background: #ccc; cursor: not-allowed; }
+
+    /* PRODUCT MODAL */
+    .modal-content { border-radius: var(--radius); overflow: hidden; border: none; }
+    .modal-header { background: var(--green-dark); border: none; }
+    .modal-title { color: var(--cream); font-weight: 700; }
+    .btn-close { filter: invert(1); }
+    .modal-product-img { width: 100%; height: 280px; object-fit: cover; border-radius: var(--radius); }
+    .detail-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .detail-icon { color: var(--green); font-size: 1rem; width: 22px; text-align: center; }
+    .detail-label { font-size: 0.8rem; color: var(--text-light); }
+    .detail-value { font-weight: 600; font-size: 0.95rem; }
+    .qty-control {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .qty-btn {
+      width: 34px; height: 34px; border-radius: 50%;
+      border: 2px solid var(--green); background: transparent;
+      color: var(--green); font-size: 1.1rem;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .qty-btn:hover { background: var(--green); color: white; }
+    .qty-num { font-size: 1.1rem; font-weight: 700; min-width: 28px; text-align: center; }
+
+    /* CART */
+    #cartSection { background: var(--white); padding: 80px 0; }
+    .cart-item-card {
+      background: var(--cream); border-radius: var(--radius);
+      padding: 18px; margin-bottom: 14px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .cart-item-img { width: 72px; height: 72px; border-radius: var(--radius-sm); object-fit: cover; }
+    .cart-item-info { flex: 1; }
+    .cart-item-name { font-weight: 700; font-size: 0.98rem; }
+    .cart-item-farmer { font-size: 0.78rem; color: var(--text-light); }
+    .cart-item-price { font-weight: 700; color: var(--green); font-size: 1rem; }
+    .cart-summary {
+      background: var(--cream-dark);
+      border-radius: var(--radius); padding: 28px;
+      position: sticky; top: 80px;
+    }
+    .cart-total-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.95rem; }
+    .cart-grand-total { font-size: 1.4rem; font-weight: 800; color: var(--green); }
+    .btn-checkout {
+      background: var(--orange); color: white;
+      border: none; border-radius: 30px;
+      padding: 13px 0; width: 100%; font-size: 1rem;
+      font-weight: 700; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-checkout:hover { background: var(--brown); transform: translateY(-2px); }
+    .farmer-group-header {
+      font-size: 0.82rem; font-weight: 700; color: var(--text-mid);
+      text-transform: uppercase; letter-spacing: 1px;
+      padding: 6px 0; margin-bottom: 8px;
+      border-bottom: 2px dashed var(--green-light);
+    }
+
+    /* AUTH */
+    #authSection { background: var(--cream); padding: 80px 0; }
+    .auth-card {
+      background: var(--white); border-radius: var(--radius);
+      padding: 44px 40px; max-width: 480px; margin: 0 auto;
+      box-shadow: var(--shadow);
+    }
+    .auth-role-btn {
+      flex: 1; padding: 12px; border-radius: var(--radius-sm);
+      border: 2px solid var(--cream-dark);
+      background: transparent; cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600; font-size: 0.92rem;
+      transition: all 0.2s; color: var(--text-mid);
+    }
+    .auth-role-btn.selected { border-color: var(--green); background: var(--green); color: white; }
+    .form-label-custom { font-size: 0.85rem; font-weight: 600; color: var(--text-mid); margin-bottom: 6px; display: block; }
+    .form-control-custom {
+      width: 100%; padding: 11px 16px;
+      border: 1.5px solid var(--cream-dark);
+      border-radius: var(--radius-sm);
+      font-family: 'Poppins', sans-serif; font-size: 0.93rem;
+      outline: none; transition: border 0.2s; background: var(--cream);
+    }
+    .form-control-custom:focus { border-color: var(--green); background: white; }
+    .auth-toggle { font-size: 0.85rem; color: var(--text-mid); text-align: center; margin-top: 20px; }
+    .auth-toggle a { color: var(--green); font-weight: 600; cursor: pointer; }
+    .btn-auth {
+      width: 100%; background: var(--green); color: white;
+      border: none; border-radius: 30px; padding: 13px;
+      font-family: 'Poppins', sans-serif; font-size: 1rem;
+      font-weight: 700; cursor: pointer; margin-top: 8px;
+      transition: background 0.2s;
+    }
+    .btn-auth:hover { background: var(--green-dark); }
+
+    /* FARMER DASHBOARD */
+    #farmerSection { background: var(--white); padding: 80px 0; }
+    .dashboard-stat-card {
+      background: var(--green-dark); color: var(--cream);
+      border-radius: var(--radius); padding: 24px;
+      text-align: center;
+    }
+    .dashboard-stat-card.orange { background: var(--orange); }
+    .dashboard-stat-card.brown { background: var(--brown); }
+    .stat-num { font-size: 2.2rem; font-weight: 800; margin-bottom: 4px; }
+    .stat-lbl { font-size: 0.8rem; opacity: 0.78; text-transform: uppercase; letter-spacing: 1px; }
+    .order-card {
+      background: var(--cream); border-radius: var(--radius);
+      padding: 18px; margin-bottom: 12px;
+      border-left: 4px solid var(--green);
+    }
+    .order-card.pending { border-left-color: var(--orange); }
+    .order-card.completed { border-left-color: var(--green-light); opacity: 0.7; }
+    .order-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .order-id { font-weight: 700; font-size: 0.92rem; }
+    .order-status-badge {
+      font-size: 0.72rem; font-weight: 700; padding: 3px 12px;
+      border-radius: 20px; text-transform: uppercase;
+    }
+    .status-pending { background: rgba(231,111,81,0.12); color: var(--orange); }
+    .status-completed { background: rgba(82,183,136,0.12); color: var(--green); }
+    .status-processing { background: rgba(244,162,25,0.12); color: #c07e00; }
+    .btn-mark-complete {
+      background: transparent; border: 2px solid var(--green);
+      color: var(--green); border-radius: 20px;
+      padding: 5px 16px; font-size: 0.82rem;
+      font-weight: 600; cursor: pointer; transition: all 0.2s;
+      font-family: 'Poppins', sans-serif;
+    }
+    .btn-mark-complete:hover { background: var(--green); color: white; }
+
+    /* ADMIN PANEL */
+    #adminSection { background: var(--cream); padding: 80px 0; }
+    .admin-table-wrap {
+      background: var(--white); border-radius: var(--radius);
+      overflow: hidden; box-shadow: var(--shadow);
+    }
+    .admin-table { width: 100%; border-collapse: collapse; }
+    .admin-table th {
+      background: var(--green-dark); color: var(--cream);
+      padding: 14px 18px; font-size: 0.82rem;
+      text-transform: uppercase; letter-spacing: 1px; font-weight: 600;
+    }
+    .admin-table td { padding: 13px 18px; border-bottom: 1px solid var(--cream-dark); font-size: 0.9rem; }
+    .admin-table tr:last-child td { border-bottom: none; }
+    .admin-table tr:hover td { background: var(--cream); }
+    .admin-action-btn {
+      padding: 4px 12px; border-radius: 14px;
+      font-size: 0.75rem; font-weight: 700;
+      border: none; cursor: pointer; margin-right: 4px;
+      font-family: 'Poppins', sans-serif;
+    }
+    .btn-approve { background: rgba(45,106,79,0.10); color: var(--green); }
+    .btn-suspend { background: rgba(231,111,81,0.10); color: var(--orange); }
+    .admin-tabs .nav-link {
+      color: var(--text-mid); font-weight: 600;
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      padding: 10px 22px;
+    }
+    .admin-tabs .nav-link.active { background: var(--green-dark); color: var(--cream); }
+
+    /* ALERTS */
+    .toast-notification {
+      position: fixed; bottom: 30px; right: 30px;
+      background: var(--green-dark); color: var(--cream);
+      padding: 14px 24px; border-radius: var(--radius-sm);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.20);
+      z-index: 9999; font-size: 0.9rem; font-weight: 600;
+      transform: translateY(80px); opacity: 0;
+      transition: all 0.35s cubic-bezier(.22,1,.36,1);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .toast-notification.show { transform: translateY(0); opacity: 1; }
+    .toast-notification.error { background: var(--orange); }
+
+    /* FOOTER */
+    footer {
+      background: var(--green-dark);
+      color: rgba(254,250,224,0.70);
+      padding: 60px 0 28px;
+    }
+    footer h5 { color: var(--cream); font-weight: 700; margin-bottom: 18px; }
+    footer a { color: rgba(254,250,224,0.65); transition: color 0.2s; font-size: 0.9rem; }
+    footer a:hover { color: var(--orange); }
+    .footer-divider { border-color: rgba(254,250,224,0.15); margin: 32px 0 20px; }
+    .footer-bottom { font-size: 0.82rem; }
+    .footer-social a {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1.5px solid rgba(254,250,224,0.25);
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-right: 8px; color: rgba(254,250,224,0.65);
+      transition: all 0.2s;
+    }
+    .footer-social a:hover { border-color: var(--orange); color: var(--orange); }
+
+    /* UTILITY */
+    .empty-state {
+      text-align: center; padding: 60px 20px;
+      color: var(--text-light);
+    }
+    .empty-state i { font-size: 3.5rem; margin-bottom: 16px; display: block; opacity: 0.4; }
+    .empty-state p { font-size: 1rem; }
+
+    @media (max-width: 768px) {
+      .hero-img-wrap { margin-top: 40px; }
+      .hero-stats { gap: 20px; }
+      .auth-card { padding: 28px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="mainNav" class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="#" onclick="showSection('heroSection')">
+      <i class="fa-solid fa-seedling me-2"></i>Farm<span>Direct</span>
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <i class="fa-solid fa-bars text-white"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto gap-1" id="customerNav">
+        <li class="nav-item"><a class="nav-link-custom" href="#" onclick="showSection('heroSection')">Home</a></li>
+        <li class="nav-item"><a class="nav-link-custom" href="#" onclick="showSection('categoriesSection')">Categories</a></li>
+        <li class="nav-item"><a class="nav-link-custom" href="#" onclick="showSection('productsSection')">Shop</a></li>
+        <li class="nav-item"><a class="nav-link-custom" href="#" onclick="showSection('authSection')">Login</a></li>
+      </ul>
+      <ul class="navbar-nav mx-auto gap-1 d-none" id="farmerNav">
+        <li class="nav-item"><a class="nav-link-custom" href="#" onclick="showSection('farmerSection')">My Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link-custom" href="#" onclick="showSection('productsSection')">Browse</a></li>
+      </ul>
+      <ul class="navbar-nav mx-auto gap-1 d-none" id="adminNav">
+        <li class="nav-item"><a class="nav-link-custom" href="#" onclick="showSection('adminSection')">Admin Panel</a></li>
+        <li class="nav-item"><a class="nav-link-custom" href="#" onclick="showSection('farmerSection')">Farmer View</a></li>
+        <li class="nav-item"><a class="nav-link-custom" href="#" onclick="showSection('productsSection')">Products</a></li>
+      </ul>
+      <div class="d-flex align-items-center gap-3 mt-2 mt-lg-0">
+        <div class="d-flex gap-2">
+          <button class="btn-role active-role" id="btnCustomer" onclick="switchRole('customer')">Customer</button>
+          <button class="btn-role" id="btnFarmer" onclick="switchRole('farmer')">Farmer</button>
+          <button class="btn-role" id="btnAdmin" onclick="switchRole('admin')">Admin</button>
+        </div>
+        <div class="cart-badge ms-2" onclick="showSection('cartSection')">
+          <i class="fa-solid fa-basket-shopping"></i>
+          <span class="badge" id="cartCount">0</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO SECTION -->
+<section id="heroSection" class="page-section active">
+  <div id="heroContent" style="min-height:88vh; background:linear-gradient(135deg,#1b4332 0%,#2d6a4f 60%,#52b788 100%); position:relative; overflow:hidden; display:flex; align-items:center;">
+    <div style="position:absolute;inset:0;background:url('https://images.pexels.com/photos/1459339/pexels-photo-1459339.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover no-repeat;opacity:0.18;"></div>
+    <div class="container py-5" style="position:relative;z-index:2;">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-6">
+          <div class="hero-content">
+            <div class="hero-badge"><i class="fa-solid fa-leaf me-2"></i>100% Farm Fresh</div>
+            <h1 class="hero-title">From <span>Farm</span> To Your Table, Directly.</h1>
+            <p class="hero-sub">Skip the middlemen. Buy directly from local farmers. Fresh produce, fair prices, and total transparency from seed to shelf.</p>
+            <div class="d-flex flex-wrap gap-2">
+              <button class="btn-hero-primary" onclick="showSection('productsSection')"><i class="fa-solid fa-store me-2"></i>Shop Now</button>
+              <button class="btn-hero-secondary" onclick="showSection('authSection')"><i class="fa-solid fa-tractor me-2"></i>Become a Farmer</button>
+            </div>
+            <div class="hero-stats">
+              <div>
+                <div class="hero-stat-num">240+</div>
+                <div class="hero-stat-label">Farmers</div>
+              </div>
+              <div>
+                <div class="hero-stat-num">1,800+</div>
+                <div class="hero-stat-label">Products</div>
+              </div>
+              <div>
+                <div class="hero-stat-num">12K+</div>
+                <div class="hero-stat-label">Customers</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="hero-img-wrap" style="position:relative;">
+            <img src="https://images.pexels.com/photos/2255935/pexels-photo-2255935.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Fresh Vegetables" class="hero-img-main" />
+            <img src="https://images.pexels.com/photos/461382/pexels-photo-461382.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Farmer" class="hero-img-float" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features strip -->
+  <div style="background:#fff;padding:36px 0;border-bottom:1px solid #f0e9c5;">
+    <div class="container">
+      <div class="row g-3 text-center">
+        <div class="col-6 col-md-3">
+          <div style="color:#2d6a4f;font-size:1.6rem;margin-bottom:8px;"><i class="fa-solid fa-truck-fast"></i></div>
+          <div style="font-weight:700;font-size:0.92rem;">Same Day Delivery</div>
+          <div style="font-size:0.78rem;color:#8aab8f;">Order by noon, get by evening</div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div style="color:#2d6a4f;font-size:1.6rem;margin-bottom:8px;"><i class="fa-solid fa-shield-halved"></i></div>
+          <div style="font-weight:700;font-size:0.92rem;">Quality Guaranteed</div>
+          <div style="font-size:0.78rem;color:#8aab8f;">100% satisfaction or refund</div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div style="color:#2d6a4f;font-size:1.6rem;margin-bottom:8px;"><i class="fa-solid fa-leaf"></i></div>
+          <div style="font-weight:700;font-size:0.92rem;">Certified Organic</div>
+          <div style="font-size:0.78rem;color:#8aab8f;">Verified organic farms</div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div style="color:#2d6a4f;font-size:1.6rem;margin-bottom:8px;"><i class="fa-solid fa-handshake"></i></div>
+          <div style="font-weight:700;font-size:0.92rem;">Fair Trade</div>
+          <div style="font-size:0.78rem;color:#8aab8f;">Farmers earn 90% of price</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES SECTION -->
+<section id="categoriesSection" class="page-section" style="background:#fff;padding:80px 0;">
+  <div class="container">
+    <div class="row mb-5 align-items-end">
+      <div class="col-lg-7">
+        <div class="section-label">Browse by Type</div>
+        <h2 class="section-title">Explore Our <span style="color:#2d6a4f;">Categories</span></h2>
+        <p class="section-sub">From crisp vegetables to golden honey, discover the full range of farm-fresh goods available from local farmers near you.</p>
+      </div>
+      <div class="col-lg-5 text-lg-end mt-3 mt-lg-0">
+        <button class="btn-hero-primary" style="display:inline-block;" onclick="showSection('productsSection')">View All Products <i class="fa-solid fa-arrow-right ms-2"></i></button>
+      </div>
+    </div>
+    <div class="row g-3" id="categoriesGrid">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS SECTION -->
+<section id="productsSection" class="page-section" style="background:#fefae0;padding:80px 0;">
+  <div class="container">
+    <div class="row mb-5 align-items-end g-3">
+      <div class="col-lg-6">
+        <div class="section-label">Farm Fresh</div>
+        <h2 class="section-title">Fresh from the <span style="color:#2d6a4f;">Field</span></h2>
+      </div>
+      <div class="col-lg-6">
+        <div class="search-bar-wrap ms-lg-auto">
+          <i class="fa-solid fa-magnifying-glass text-muted me-2"></i>
+          <input type="text" id="searchInput" placeholder="Search vegetables, fruits, dairy..." oninput="filterProducts()" />
+          <button class="btn-search" onclick="filterProducts()">Search</button>
+        </div>
+      </div>
+    </div>
+    <div class="mb-4" id="filterChips">
+      <!-- Rendered by JS -->
+    </div>
+    <div class="row g-4" id="productsGrid">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- CART SECTION -->
+<section id="cartSection" class="page-section" style="background:#fff;padding:80px 0;">
+  <div class="container">
+    <div class="section-label">Your Selection</div>
+    <h2 class="section-title mb-5">Shopping <span style="color:#2d6a4f;">Cart</span></h2>
+    <div class="row g-4">
+      <div class="col-lg-8">
+        <div id="cartItemsWrap">
+          <div class="empty-state" id="cartEmpty">
+            <i class="fa-solid fa-basket-shopping"></i>
+            <p>Your cart is empty.<br /><a href="#" onclick="showSection('productsSection')" style="color:#2d6a4f;font-weight:600;">Start shopping</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="cart-summary">
+          <h5 style="font-weight:800;margin-bottom:20px;">Order Summary</h5>
+          <div class="cart-total-row"><span>Subtotal</span><span id="cartSubtotal">$0.00</span></div>
+          <div class="cart-total-row"><span>Delivery</span><span style="color:#2d6a4f;font-weight:600;">Free</span></div>
+          <hr style="border-color:#d4c9a0;" />
+          <div class="cart-total-row"><span style="font-weight:700;">Total</span><span class="cart-grand-total" id="cartTotal">$0.00</span></div>
+          <button class="btn-checkout mt-3" onclick="checkout()">Checkout <i class="fa-solid fa-arrow-right ms-2"></i></button>
+          <button class="btn-checkout mt-2" style="background:transparent;color:#774936;border:2px solid #774936;" onclick="showSection('productsSection')">Continue Shopping</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUTH SECTION -->
+<section id="authSection" class="page-section" style="background:#fefae0;padding:80px 0;">
+  <div class="container">
+    <div class="auth-card">
+      <div class="text-center mb-4">
+        <i class="fa-solid fa-seedling" style="font-size:2.2rem;color:#2d6a4f;"></i>
+        <h3 style="font-weight:800;margin-top:10px;" id="authTitle">Welcome Back</h3>
+        <p style="color:#8aab8f;font-size:0.9rem;" id="authSubtitle">Sign in to your FarmDirect account</p>
+      </div>
+      <!-- Role Selection -->
+      <div class="d-flex gap-2 mb-4" id="authRoleSelector">
+        <button class="auth-role-btn selected" id="roleCustomerBtn" onclick="selectAuthRole('customer')"><i class="fa-solid fa-user me-2"></i>Customer</button>
+        <button class="auth-role-btn" id="roleFarmerBtn" onclick="selectAuthRole('farmer')"><i class="fa-solid fa-tractor me-2"></i>Farmer</button>
+      </div>
+      <!-- Login Form -->
+      <div id="loginForm">
+        <div class="mb-3">
+          <label class="form-label-custom">Email Address</label>
+          <input type="email" class="form-control-custom" id="loginEmail" placeholder="you@example.com" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label-custom">Password</label>
+          <input type="password" class="form-control-custom" id="loginPassword" placeholder="Your password" />
+        </div>
+        <button class="btn-auth" onclick="handleLogin()">Sign In <i class="fa-solid fa-arrow-right ms-2"></i></button>
+        <div class="auth-toggle">Already have an account? <a onclick="toggleAuthMode('register')">Create one</a></div>
+      </div>
+      <!-- Register Form -->
+      <div id="registerForm" class="d-none">
+        <div class="mb-3">
+          <label class="form-label-custom">Full Name</label>
+          <input type="text" class="form-control-custom" id="regName" placeholder="Your full name" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label-custom">Email Address</label>
+          <input type="email" class="form-control-custom" id="regEmail" placeholder="you@example.com" />
+        </div>
+        <div class="mb-3" id="farmNameWrap" style="display:none!important;">
+          <label class="form-label-custom">Farm Name</label>
+          <input type="text" class="form-control-custom" id="regFarmName" placeholder="Your farm name" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label-custom">Password</label>
+          <input type="password" class="form-control-custom" id="regPassword" placeholder="Create a password" />
+        </div>
+        <button class="btn-auth" onclick="handleRegister()">Create Account <i class="fa-solid fa-check ms-2"></i></button>
+        <div class="auth-toggle">Already have an account? <a onclick="toggleAuthMode('login')">Sign in</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FARMER DASHBOARD -->
+<section id="farmerSection" class="page-section" style="background:#fff;padding:80px 0;">
+  <div class="container">
+    <div class="section-label">Farmer Portal</div>
+    <h2 class="section-title mb-5">My <span style="color:#2d6a4f;">Dashboard</span></h2>
+
+    <!-- Stats -->
+    <div class="row g-3 mb-5">
+      <div class="col-6 col-md-3">
+        <div class="dashboard-stat-card">
+          <div class="stat-num" id="statTotalOrders">12</div>
+          <div class="stat-lbl">Total Orders</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="dashboard-stat-card orange">
+          <div class="stat-num" id="statPendingOrders">5</div>
+          <div class="stat-lbl">Pending</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="dashboard-stat-card brown">
+          <div class="stat-num" id="statCompletedOrders">7</div>
+          <div class="stat-lbl">Completed</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="dashboard-stat-card" style="background:#52b788;">
+          <div class="stat-num">$1,240</div>
+          <div class="stat-lbl">Revenue</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Orders List -->
+    <div class="row g-4">
+      <div class="col-lg-8">
+        <h5 style="font-weight:800;margin-bottom:20px;">Incoming Orders</h5>
+        <div id="farmerOrdersList">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <h5 style="font-weight:800;margin-bottom:20px;">Quick Add Product</h5>
+        <div style="background:#fefae0;border-radius:14px;padding:24px;">
+          <div class="mb-3">
+            <label class="form-label-custom">Product Name</label>
+            <input type="text" class="form-control-custom" placeholder="e.g. Tomatoes" id="newProductName" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label-custom">Category</label>
+            <select class="form-control-custom" id="newProductCat">
+              <option value="">Select category</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label-custom">Price per kg</label>
+            <input type="number" class="form-control-custom" placeholder="0.00" id="newProductPrice" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label-custom">Fertilizer Type</label>
+            <select class="form-control-custom" id="newProductFertilizer">
+              <option value="organic">Organic</option>
+              <option value="non-organic">Non-organic</option>
+            </select>
+          </div>
+          <button class="btn-auth" style="margin-top:0;" onclick="addFarmerProduct()">Add Product</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUPER ADMIN PANEL -->
+<section id="adminSection" class="page-section" style="background:#fefae0;padding:80px 0;">
+  <div class="container">
+    <div class="section-label">Control Center</div>
+    <h2 class="section-title mb-5">Super Admin <span style="color:#2d6a4f;">Panel</span></h2>
+
+    <!-- Admin Stats -->
+    <div class="row g-3 mb-5">
+      <div class="col-6 col-md-3">
+        <div style="background:#fff;border-radius:14px;padding:20px;text-align:center;box-shadow:0 4px 24px rgba(45,106,79,0.10);">
+          <div style="font-size:1.8rem;font-weight:800;color:#2d6a4f;" id="adminTotalFarmers">0</div>
+          <div style="font-size:0.78rem;color:#8aab8f;text-transform:uppercase;letter-spacing:1px;">Farmers</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div style="background:#fff;border-radius:14px;padding:20px;text-align:center;box-shadow:0 4px 24px rgba(45,106,79,0.10);">
+          <div style="font-size:1.8rem;font-weight:800;color:#e76f51;">0</div>
+          <div style="font-size:0.78rem;color:#8aab8f;text-transform:uppercase;letter-spacing:1px;">Customers</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div style="background:#fff;border-radius:14px;padding:20px;text-align:center;box-shadow:0 4px 24px rgba(45,106,79,0.10);">
+          <div style="font-size:1.8rem;font-weight:800;color:#774936;" id="adminTotalProducts">0</div>
+          <div style="font-size:0.78rem;color:#8aab8f;text-transform:uppercase;letter-spacing:1px;">Products</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div style="background:#fff;border-radius:14px;padding:20px;text-align:center;box-shadow:0 4px 24px rgba(45,106,79,0.10);">
+          <div style="font-size:1.8rem;font-weight:800;color:#52b788;">$18,440</div>
+          <div style="font-size:0.78rem;color:#8aab8f;text-transform:uppercase;letter-spacing:1px;">GMV</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin Tabs -->
+    <ul class="nav admin-tabs border-bottom mb-4">
+      <li class="nav-item"><a class="nav-link active" href="#" onclick="showAdminTab('farmers', this)">Farmers</a></li>
+      <li class="nav-item"><a class="nav-link" href="#" onclick="showAdminTab('customers', this)">Customers</a></li>
+      <li class="nav-item"><a class="nav-link" href="#" onclick="showAdminTab('products', this)">Products</a></li>
+      <li class="nav-item"><a class="nav-link" href="#" onclick="showAdminTab('orders', this)">Orders</a></li>
+    </ul>
+    <div id="adminTableWrap" class="admin-table-wrap">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT DETAIL MODAL -->
+<div class="modal fade" id="productModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalProductName">Product Name</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body p-4">
+        <div class="row g-4">
+          <div class="col-md-5">
+            <img id="modalProductImg" src="" alt="" class="modal-product-img" />
+          </div>
+          <div class="col-md-7">
+            <div class="mb-3">
+              <div class="product-category-tag" id="modalCategory"></div>
+              <div style="font-size:1.8rem;font-weight:800;color:#2d6a4f;" id="modalPrice"></div>
+              <div style="font-size:0.85rem;color:#8aab8f;" id="modalFarmer"></div>
+            </div>
+            <hr style="border-color:#f0e9c5;" />
+            <div class="detail-row">
+              <div class="detail-icon"><i class="fa-solid fa-leaf"></i></div>
+              <div><div class="detail-label">Fertilizer Usage</div><div class="detail-value" id="modalFertilizer"></div></div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
+              <div><div class="detail-label">Available Stock</div><div class="detail-value" id="modalStock"></div></div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-icon"><i class="fa-solid fa-circle-check"></i></div>
+              <div><div class="detail-label">Availability Status</div><div class="detail-value" id="modalStatus"></div></div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-icon"><i class="fa-regular fa-calendar"></i></div>
+              <div><div class="detail-label">Next Available Date</div><div class="detail-value" id="modalDate"></div></div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-icon"><i class="fa-solid fa-location-dot"></i></div>
+              <div><div class="detail-label">Farm Location</div><div class="detail-value" id="modalLocation"></div></div>
+            </div>
+            <hr style="border-color:#f0e9c5;" />
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <label style="font-size:0.85rem;font-weight:600;">Quantity:</label>
+              <div class="qty-control">
+                <button class="qty-btn" onclick="adjustQty(-1)">-</button>
+                <span class="qty-num" id="modalQty">1</span>
+                <button class="qty-btn" onclick="adjustQty(1)">+</button>
+              </div>
+            </div>
+            <button class="btn-add-cart" id="modalAddCartBtn" onclick="addToCartFromModal()">
+              <i class="fa-solid fa-basket-shopping me-2"></i>Add to Cart
+            </button>
+          </div>
+        </div>
+        <div class="mt-4 p-3 rounded" style="background:#f0f4f0;">
+          <p style="font-size:0.88rem;margin:0;color:#4a6550;"><i class="fa-solid fa-circle-info me-2;color:#2d6a4f;"></i><strong>About this product:</strong> <span id="modalDescription"></span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-notification" id="toastMsg">
+  <i class="fa-solid fa-circle-check"></i>
+  <span id="toastText"></span>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <h5 style="font-size:1.3rem;"><i class="fa-solid fa-seedling me-2" style="color:#e76f51;"></i>FarmDirect</h5>
+        <p style="font-size:0.88rem;max-width:280px;">Connecting local farmers with customers who care about where their food comes from.</p>
+        <div class="footer-social mt-3">
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h5 style="font-size:0.95rem;">Quick Links</h5>
+        <ul style="list-style:none;padding:0;">
+          <li class="mb-2"><a href="#" onclick="showSection('heroSection')">Home</a></li>
+          <li class="mb-2"><a href="#" onclick="showSection('productsSection')">Shop</a></li>
+          <li class="mb-2"><a href="#" onclick="showSection('categoriesSection')">Categories</a></li>
+          <li class="mb-2"><a href="#" onclick="showSection('authSection')">Login</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h5 style="font-size:0.95rem;">For Farmers</h5>
+        <ul style="list-style:none;padding:0;">
+          <li class="mb-2"><a href="#" onclick="showSection('farmerSection')">Dashboard</a></li>
+          <li class="mb-2"><a href="#">List Products</a></li>
+          <li class="mb-2"><a href="#">Manage Orders</a></li>
+          <li class="mb-2"><a href="#">Analytics</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h5 style="font-size:0.95rem;">Newsletter</h5>
+        <p style="font-size:0.85rem;">Get seasonal updates and exclusive deals.</p>
+        <div style="display:flex;background:rgba(255,255,255,0.08);border-radius:30px;padding:5px 5px 5px 16px;border:1px solid rgba(254,250,224,0.15);">
+          <input type="email" placeholder="your@email.com" style="flex:1;border:none;background:transparent;color:rgba(254,250,224,0.8);font-size:0.88rem;outline:none;" />
+          <button style="background:#e76f51;border:none;color:white;border-radius:25px;padding:7px 18px;font-size:0.82rem;font-weight:600;cursor:pointer;">Subscribe</button>
+        </div>
+      </div>
+    </div>
+    <hr class="footer-divider" />
+    <div class="footer-bottom d-flex flex-wrap justify-content-between">
+      <span>2024 FarmDirect. All rights reserved.</span>
+      <span>Made with care for local farmers</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const categories = [
+  { id: 'vegetables', name: 'Vegetables', icon: 'fa-carrot', count: 42 },
+  { id: 'fruits', name: 'Fruits', icon: 'fa-apple-whole', count: 31 },
+  { id: 'dairy', name: 'Dairy', icon: 'fa-cow', count: 18 },
+  { id: 'herbs', name: 'Herbs', icon: 'fa-leaf', count: 24 },
+  { id: 'grains', name: 'Grains', icon: 'fa-wheat-awn', count: 15 },
+  { id: 'eggs', name: 'Eggs & Poultry', icon: 'fa-egg', count: 9 },
+  { id: 'honey', name: 'Honey', icon: 'fa-jar', count: 7 },
+  { id: 'nuts', name: 'Nuts & Seeds', icon: 'fa-seedling', count: 11 }
+];
+
+const farmers = [
+  { id: 1, name: 'Green Valley Farm', location: 'Napa Valley, CA', avatar: 'https://images.pexels.com/photos/2382665/pexels-photo-2382665.jpeg?auto=compress&cs=tinysrgb&w=200', verified: true },
+  { id: 2, name: 'Sunrise Organics', location: 'Sonoma, CA', avatar: 'https://images.pexels.com/photos/1084542/pexels-photo-1084542.jpeg?auto=compress&cs=tinysrgb&w=200', verified: true },
+  { id: 3, name: 'Heritage Acres', location: 'Fresno, CA', avatar: 'https://images.pexels.com/photos/2255935/pexels-photo-2255935.jpeg?auto=compress&cs=tinysrgb&w=200', verified: false },
+  { id: 4, name: 'Golden Fields', location: 'Sacramento, CA', avatar: 'https://images.pexels.com/photos/1459339/pexels-photo-1459339.jpeg?auto=compress&cs=tinysrgb&w=200', verified: true }
+];
+
+const products = [
+  { id: 1, name: 'Heirloom Tomatoes', category: 'vegetables', price: 4.50, unit: 'kg', farmerId: 1, fertilizer: 'organic', stock: 85, status: 'in-stock', nextAvailable: '2024-03-01', image: 'https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Vine-ripened heirloom tomatoes in a variety of colors. Grown without synthetic pesticides.' },
+  { id: 2, name: 'Baby Spinach', category: 'vegetables', price: 3.20, unit: 'kg', farmerId: 2, fertilizer: 'organic', stock: 120, status: 'in-stock', nextAvailable: '2024-02-28', image: 'https://images.pexels.com/photos/2325843/pexels-photo-2325843.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Tender baby spinach leaves, freshly harvested each morning. Perfect for salads and smoothies.' },
+  { id: 3, name: 'Fresh Strawberries', category: 'fruits', price: 6.80, unit: 'kg', farmerId: 1, fertilizer: 'organic', stock: 50, status: 'limited', nextAvailable: '2024-03-05', image: 'https://images.pexels.com/photos/934066/pexels-photo-934066.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Sweet, ripe strawberries fresh from the field. Available in season only.' },
+  { id: 4, name: 'Raw Honey', category: 'honey', price: 12.00, unit: '500g', farmerId: 3, fertilizer: 'organic', stock: 30, status: 'in-stock', nextAvailable: '2024-04-01', image: 'https://images.pexels.com/photos/1444253/pexels-photo-1444253.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Wildflower raw honey, unfiltered and unprocessed, harvested from our natural hives.' },
+  { id: 5, name: 'Free Range Eggs', category: 'eggs', price: 5.50, unit: 'dozen', farmerId: 2, fertilizer: 'non-organic', stock: 200, status: 'in-stock', nextAvailable: '2024-02-27', image: 'https://images.pexels.com/photos/1556707/pexels-photo-1556707.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Free-range eggs from happy hens with outdoor access. Rich yolks and full flavor.' },
+  { id: 6, name: 'Artisan Cheese', category: 'dairy', price: 9.00, unit: '250g', farmerId: 4, fertilizer: 'non-organic', stock: 0, status: 'out-of-stock', nextAvailable: '2024-03-15', image: 'https://images.pexels.com/photos/773253/pexels-photo-773253.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Hand-crafted aged cheddar from our small-batch dairy. Complex, nutty flavor profile.' },
+  { id: 7, name: 'Purple Kale', category: 'vegetables', price: 2.80, unit: 'kg', farmerId: 1, fertilizer: 'organic', stock: 75, status: 'in-stock', nextAvailable: '2024-02-27', image: 'https://images.pexels.com/photos/1656663/pexels-photo-1656663.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Vibrant purple kale rich in antioxidants. Slightly sweeter than green kale varieties.' },
+  { id: 8, name: 'Whole Grain Wheat', category: 'grains', price: 2.20, unit: 'kg', farmerId: 3, fertilizer: 'non-organic', stock: 300, status: 'in-stock', nextAvailable: '2024-02-28', image: 'https://images.pexels.com/photos/326082/pexels-photo-326082.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Stone-ground whole grain wheat flour milled fresh. High fiber and protein content.' }
+];
+
+const sampleOrders = [
+  { id: 'ORD-001', customer: 'Alice Johnson', items: [{ name: 'Heirloom Tomatoes', qty: 2, price: 4.50 }], total: 9.00, status: 'pending', date: '2024-02-26' },
+  { id: 'ORD-002', customer: 'Bob Martinez', items: [{ name: 'Baby Spinach', qty: 3, price: 3.20 }], total: 9.60, status: 'processing', date: '2024-02-25' },
+  { id: 'ORD-003', customer: 'Carol White', items: [{ name: 'Fresh Strawberries', qty: 1, price: 6.80 }], total: 6.80, status: 'completed', date: '2024-02-24' },
+  { id: 'ORD-004', customer: 'David Lee', items: [{ name: 'Purple Kale', qty: 2, price: 2.80 }], total: 5.60, status: 'pending', date: '2024-02-26' },
+  { id: 'ORD-005', customer: 'Eva Brown', items: [{ name: 'Heirloom Tomatoes', qty: 1, price: 4.50 }], total: 4.50, status: 'completed', date: '2024-02-23' }
+];
+
+let cart = [];
+let currentRole = 'customer';
+let activeCategory = 'all';
+let currentFilter = 'all';
+let currentProductId = null;
+let modalQtyVal = 1;
+let authRole = 'customer';
+let authMode = 'login';
+let adminTab = 'farmers';
+
+const adminCustomers = [
+  { id: 'C001', name: 'Alice Johnson', email: 'alice@example.com', orders: 8, status: 'active' },
+  { id: 'C002', name: 'Bob Martinez', email: 'bob@example.com', orders: 3, status: 'active' },
+  { id: 'C003', name: 'Carol White', email: 'carol@example.com', orders: 12, status: 'suspended' }
+];
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function showSection(sectionId) {
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  const section = document.getElementById(sectionId);
+  if (section) {
+    section.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  updateActiveNav(sectionId);
+}
+
+function updateActiveNav(sectionId) {
+  document.querySelectorAll('.nav-link-custom').forEach(l => l.classList.remove('active'));
+}
+
+function switchRole(role) {
+  currentRole = role;
+  document.getElementById('btnCustomer').classList.remove('active-role');
+  document.getElementById('btnFarmer').classList.remove('active-role');
+  document.getElementById('btnAdmin').classList.remove('active-role');
+  document.getElementById('btn' + role.charAt(0).toUpperCase() + role.slice(1)).classList.add('active-role');
+
+  document.getElementById('customerNav').classList.add('d-none');
+  document.getElementById('farmerNav').classList.add('d-none');
+  document.getElementById('adminNav').classList.add('d-none');
+
+  if (role === 'customer') {
+    document.getElementById('customerNav').classList.remove('d-none');
+    showSection('heroSection');
+  } else if (role === 'farmer') {
+    document.getElementById('farmerNav').classList.remove('d-none');
+    showSection('farmerSection');
+  } else if (role === 'admin') {
+    document.getElementById('adminNav').classList.remove('d-none');
+    showSection('adminSection');
+    renderAdminTable();
+  }
+  showToast('Switched to ' + role + ' view', false);
+}
+
+// ============================================================
+// CATEGORIES
+// ============================================================
+function renderCategories() {
+  const grid = document.getElementById('categoriesGrid');
+  if (!grid) return;
+  grid.innerHTML = categories.map(cat => `
+    <div class="col-6 col-md-4 col-lg-3">
+      <div class="category-card ${activeCategory === cat.id ? 'active-cat' : ''}" onclick="filterByCategory('${cat.id}')">
+        <div class="category-icon"><i class="fa-solid ${cat.icon}"></i></div>
+        <div class="category-name">${cat.name}</div>
+        <div class="category-count">${cat.count} products</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterByCategory(catId) {
+  activeCategory = catId;
+  currentFilter = catId;
+  renderCategories();
+  showSection('productsSection');
+  renderProducts();
+  renderFilterChips();
+}
+
+// ============================================================
+// PRODUCTS
+// ============================================================
+function renderFilterChips() {
+  const wrap = document.getElementById('filterChips');
+  if (!wrap) return;
+  const allChips = [
+    { id: 'all', label: 'All Products' },
+    { id: 'organic', label: 'Organic Only' },
+    ...categories.map(c => ({ id: c.id, label: c.name }))
+  ];
+  wrap.innerHTML = allChips.map(chip => `
+    <span class="filter-chip ${currentFilter === chip.id ? 'active-filter' : ''}" onclick="applyFilter('${chip.id}')">${chip.label}</span>
+  `).join('');
+}
+
+function applyFilter(filterId) {
+  currentFilter = filterId;
+  activeCategory = filterId;
+  renderFilterChips();
+  renderProducts();
+}
+
+function filterProducts() {
+  renderProducts();
+}
+
+function renderProducts() {
+  const grid = document.getElementById('productsGrid');
+  if (!grid) return;
+  const search = (document.getElementById('searchInput')?.value || '').toLowerCase();
+  let filtered = products.filter(p => {
+    const matchSearch = !search || p.name.toLowerCase().includes(search) || p.category.toLowerCase().includes(search);
+    const matchFilter = currentFilter === 'all' || currentFilter === p.fertilizer || currentFilter === p.category;
+    return matchSearch && matchFilter;
+  });
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `<div class="col-12"><div class="empty-state"><i class="fa-solid fa-magnifying-glass"></i><p>No products found. Try a different search.</p></div></div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(product => {
+    const farmer = farmers.find(f => f.id === product.farmerId);
+    const availClass = product.status === 'in-stock' ? 'avail-in-stock' : product.status === 'limited' ? 'avail-limited' : 'avail-out';
+    const availLabel = product.status === 'in-stock' ? 'In Stock' : product.status === 'limited' ? 'Limited Stock' : 'Out of Stock';
+    const badgeClass = product.status === 'out-of-stock' ? 'out-of-stock' : product.fertilizer;
+    const badgeLabel = product.status === 'out-of-stock' ? 'Out of Stock' : product.fertilizer === 'organic' ? 'Organic' : 'Conventional';
+    return `
+      <div class="col-sm-6 col-md-4 col-xl-3">
+        <div class="product-card" onclick="openProductModal(${product.id})">
+          <div class="product-img-wrap">
+            <img src="${product.image}" alt="${product.name}" class="product-img" />
+            <span class="product-badge ${badgeClass}">${badgeLabel}</span>
+          </div>
+          <div class="product-body">
+            <div class="product-category-tag">${categories.find(c => c.id === product.category)?.name || product.category}</div>
+            <div class="product-name">${product.name}</div>
+            <div class="product-farmer"><i class="fa-solid fa-location-dot"></i>${farmer ? farmer.name : 'Unknown Farm'}</div>
+            <div class="d-flex justify-content-between align-items-end">
+              <div>
+                <div class="product-price">$${product.price.toFixed(2)} <span>/ ${product.unit}</span></div>
+                <span class="product-availability ${availClass}">${availLabel}</span>
+              </div>
+            </div>
+            <button class="btn-add-cart" ${product.status === 'out-of-stock' ? 'disabled' : ''} onclick="event.stopPropagation(); addToCart(${product.id})">
+              <i class="fa-solid fa-basket-shopping me-2"></i>Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ============================================================
+// PRODUCT MODAL
+// ============================================================
+function openProductModal(productId) {
+  const product = products.find(p => p.id === productId);
+  if (!product) return;
+  const farmer = farmers.find(f => f.id === product.farmerId);
+  currentProductId = productId;
+  modalQtyVal = 1;
+
+  document.getElementById('modalProductName').textContent = product.name;
+  document.getElementById('modalProductImg').src = product.image;
+  document.getElementById('modalCategory').textContent = categories.find(c => c.id === product.category)?.name || product.category;
+  document.getElementById('modalPrice').textContent = '$' + product.price.toFixed(2) + ' / ' + product.unit;
+  document.getElementById('modalFarmer').innerHTML = '<i class="fa-solid fa-location-dot me-1"></i>' + (farmer ? farmer.name + ' - ' + farmer.location : 'Unknown Farm');
+  document.getElementById('modalFertilizer').textContent = product.fertilizer === 'organic' ? 'Organic (No synthetic fertilizers)' : 'Conventional (Standard fertilizers)';
+  document.getElementById('modalStock').textContent = product.stock > 0 ? product.stock + ' ' + product.unit + ' available' : 'Currently unavailable';
+  document.getElementById('modalStatus').textContent = product.status === 'in-stock' ? 'Available Now' : product.status === 'limited' ? 'Limited Availability' : 'Out of Stock';
+  document.getElementById('modalDate').textContent = product.nextAvailable || 'Check back soon';
+  document.getElementById('modalLocation').textContent = farmer ? farmer.location : 'Local Farm';
+  document.getElementById('modalDescription').textContent = product.description;
+  document.getElementById('modalQty').textContent = modalQtyVal;
+  const addBtn = document.getElementById('modalAddCartBtn');
+  addBtn.disabled = product.status === 'out-of-stock';
+  addBtn.textContent = product.status === 'out-of-stock' ? 'Out of Stock' : 'Add to Cart';
+  if (product.status !== 'out-of-stock') {
+    addBtn.innerHTML = '<i class="fa-solid fa-basket-shopping me-2"></i>Add to Cart';
+  }
+
+  new bootstrap.Modal(document.getElementById('productModal')).show();
+}
+
+function adjustQty(delta) {
+  const product = products.find(p => p.id === currentProductId);
+  const max = product ? product.stock : 99;
+  modalQtyVal = Math.max(1, Math.min(max || 99, modalQtyVal + delta));
+  document.getElementById('modalQty').textContent = modalQtyVal;
+}
+
+function addToCartFromModal() {
+  if (currentProductId) {
+    addToCart(currentProductId, modalQtyVal);
+    bootstrap.Modal.getInstance(document.getElementById('productModal')).hide();
+  }
+}
+
+// ============================================================
+// CART
+// ============================================================
+function addToCart(productId, qty = 1) {
+  const product = products.find(p => p.id === productId);
+  if (!product || product.status === 'out-of-stock') return;
+  const existing = cart.find(i => i.productId === productId);
+  if (existing) {
+    existing.qty += qty;
+  } else {
+    cart.push({ productId, qty });
+  }
+  updateCartCount();
+  showToast(product.name + ' added to cart');
+}
+
+function removeFromCart(productId) {
+  cart = cart.filter(i => i.productId !== productId);
+  updateCartCount();
+  renderCart();
+}
+
+function updateCartQty(productId, delta) {
+  const item = cart.find(i => i.productId === productId);
+  if (!item) return;
+  item.qty = Math.max(1, item.qty + delta);
+  renderCart();
+  updateCartCount();
+}
+
+function updateCartCount() {
+  const total = cart.reduce((sum, i) => sum + i.qty, 0);
+  document.getElementById('cartCount').textContent = total;
+}
+
+function renderCart() {
+  const wrap = document.getElementById('cartItemsWrap');
+  const emptyEl = document.getElementById('cartEmpty');
+  if (cart.length === 0) {
+    wrap.innerHTML = `<div class="empty-state" id="cartEmpty"><i class="fa-solid fa-basket-shopping"></i><p>Your cart is empty.<br /><a href="#" onclick="showSection('productsSection')" style="color:#2d6a4f;font-weight:600;">Start shopping</a></p></div>`;
+    document.getElementById('cartSubtotal').textContent = '$0.00';
+    document.getElementById('cartTotal').textContent = '$0.00';
+    return;
+  }
+
+  // Group by farmer
+  const groups = {};
+  cart.forEach(item => {
+    const product = products.find(p => p.id === item.productId);
+    if (!product) return;
+    const farmer = farmers.find(f => f.id === product.farmerId);
+    const farmerName = farmer ? farmer.name : 'Unknown Farm';
+    if (!groups[farmerName]) groups[farmerName] = [];
+    groups[farmerName].push({ ...item, product, farmer });
+  });
+
+  let html = '';
+  let subtotal = 0;
+  Object.entries(groups).forEach(([farmerName, items]) => {
+    html += `<div class="farmer-group-header"><i class="fa-solid fa-tractor me-2"></i>${farmerName}</div>`;
+    items.forEach(({ productId, qty, product }) => {
+      const lineTotal = product.price * qty;
+      subtotal += lineTotal;
+      html += `
+        <div class="cart-item-card">
+          <img src="${product.image}" alt="${product.name}" class="cart-item-img" />
+          <div class="cart-item-info">
+            <div class="cart-item-name">${product.name}</div>
+            <div class="cart-item-farmer">$${product.price.toFixed(2)} / ${product.unit}</div>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <button class="qty-btn" style="width:28px;height:28px;font-size:0.9rem;" onclick="updateCartQty(${productId}, -1)">-</button>
+            <span style="font-weight:700;min-width:20px;text-align:center;">${qty}</span>
+            <button class="qty-btn" style="width:28px;height:28px;font-size:0.9rem;" onclick="updateCartQty(${productId}, 1)">+</button>
+          </div>
+          <div class="cart-item-price">$${lineTotal.toFixed(2)}</div>
+          <button onclick="removeFromCart(${productId})" style="background:none;border:none;color:#aaa;cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      `;
+    });
+  });
+
+  wrap.innerHTML = html;
+  document.getElementById('cartSubtotal').textContent = '$' + subtotal.toFixed(2);
+  document.getElementById('cartTotal').textContent = '$' + subtotal.toFixed(2);
+}
+
+function checkout() {
+  if (cart.length === 0) { showToast('Your cart is empty!', true); return; }
+  cart = [];
+  updateCartCount();
+  renderCart();
+  showToast('Order placed successfully! Thank you.');
+  setTimeout(() => showSection('heroSection'), 1500);
+}
+
+// ============================================================
+// AUTH
+// ============================================================
+function selectAuthRole(role) {
+  authRole = role;
+  document.getElementById('roleCustomerBtn').classList.toggle('selected', role === 'customer');
+  document.getElementById('roleFarmerBtn').classList.toggle('selected', role === 'farmer');
+  const farmWrap = document.getElementById('farmNameWrap');
+  if (farmWrap) farmWrap.style.display = role === 'farmer' && authMode === 'register' ? 'block' : 'none';
+}
+
+function toggleAuthMode(mode) {
+  authMode = mode;
+  document.getElementById('loginForm').classList.toggle('d-none', mode !== 'login');
+  document.getElementById('registerForm').classList.toggle('d-none', mode !== 'register');
+  document.getElementById('authTitle').textContent = mode === 'login' ? 'Welcome Back' : 'Create Account';
+  document.getElementById('authSubtitle').textContent = mode === 'login' ? 'Sign in to your FarmDirect account' : 'Join the FarmDirect community';
+  const farmWrap = document.getElementById('farmNameWrap');
+  if (farmWrap) farmWrap.style.display = mode === 'register' && authRole === 'farmer' ? 'block' : 'none';
+}
+
+function handleLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass = document.getElementById('loginPassword').value.trim();
+  if (!email || !pass) { showToast('Please fill in all fields', true); return; }
+  if (!email.includes('@')) { showToast('Invalid email address', true); return; }
+  showToast('Welcome back! Logged in as ' + authRole);
+  switchRole(authRole);
+}
+
+function handleRegister() {
+  const name = document.getElementById('regName').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const pass = document.getElementById('regPassword').value.trim();
+  if (!name || !email || !pass) { showToast('Please fill in all fields', true); return; }
+  if (!email.includes('@')) { showToast('Invalid email address', true); return; }
+  if (pass.length < 6) { showToast('Password must be at least 6 characters', true); return; }
+  showToast('Account created! Welcome to FarmDirect.');
+  switchRole(authRole);
+}
+
+// ============================================================
+// FARMER DASHBOARD
+// ============================================================
+function renderFarmerOrders() {
+  const list = document.getElementById('farmerOrdersList');
+  if (!list) return;
+  list.innerHTML = sampleOrders.map(order => `
+    <div class="order-card ${order.status}" id="orderCard${order.id}">
+      <div class="order-card-header">
+        <div>
+          <div class="order-id">${order.id}</div>
+          <div style="font-size:0.8rem;color:#8aab8f;">${order.customer} &middot; ${order.date}</div>
+        </div>
+        <span class="order-status-badge status-${order.status}">${order.status}</span>
+      </div>
+      <div style="font-size:0.88rem;color:#4a6550;margin-bottom:10px;">
+        ${order.items.map(i => `${i.qty}x ${i.name} &mdash; $${(i.qty * i.price).toFixed(2)}`).join(', ')}
+      </div>
+      <div class="d-flex justify-content-between align-items-center">
+        <div style="font-weight:700;color:#2d6a4f;">Total: $${order.total.toFixed(2)}</div>
+        ${order.status !== 'completed' ? `<button class="btn-mark-complete" onclick="markOrderComplete('${order.id}')"><i class="fa-solid fa-check me-1"></i>Mark Complete</button>` : '<span style="font-size:0.82rem;color:#52b788;"><i class="fa-solid fa-circle-check me-1"></i>Completed</span>'}
+      </div>
+    </div>
+  `).join('');
+  renderFarmerStats();
+  populateFarmerCategorySelect();
+}
+
+function renderFarmerStats() {
+  const total = sampleOrders.length;
+  const pending = sampleOrders.filter(o => o.status === 'pending' || o.status === 'processing').length;
+  const completed = sampleOrders.filter(o => o.status === 'completed').length;
+  document.getElementById('statTotalOrders').textContent = total;
+  document.getElementById('statPendingOrders').textContent = pending;
+  document.getElementById('statCompletedOrders').textContent = completed;
+}
+
+function populateFarmerCategorySelect() {
+  const sel = document.getElementById('newProductCat');
+  if (!sel) return;
+  sel.innerHTML = '<option value="">Select category</option>' + categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+}
+
+function markOrderComplete(orderId) {
+  const order = sampleOrders.find(o => o.id === orderId);
+  if (order) {
+    order.status = 'completed';
+    renderFarmerOrders();
+    showToast('Order ' + orderId + ' marked as completed');
+  }
+}
+
+function addFarmerProduct() {
+  const name = document.getElementById('newProductName').value.trim();
+  const cat = document.getElementById('newProductCat').value;
+  const price = parseFloat(document.getElementById('newProductPrice').value);
+  const fertilizer = document.getElementById('newProductFertilizer').value;
+  if (!name || !cat || isNaN(price) || price <= 0) { showToast('Please fill in all product fields', true); return; }
+  const newProduct = {
+    id: products.length + 1, name, category: cat, price,
+    unit: 'kg', farmerId: 1, fertilizer, stock: 100,
+    status: 'in-stock', nextAvailable: null,
+    image: 'https://images.pexels.com/photos/1459339/pexels-photo-1459339.jpeg?auto=compress&cs=tinysrgb&w=600',
+    description: 'Freshly added product by farmer.'
+  };
+  products.push(newProduct);
+  document.getElementById('newProductName').value = '';
+  document.getElementById('newProductPrice').value = '';
+  showToast('Product "' + name + '" added successfully!');
+}
+
+// ============================================================
+// ADMIN PANEL
+// ============================================================
+function showAdminTab(tab, el) {
+  adminTab = tab;
+  document.querySelectorAll('.admin-tabs .nav-link').forEach(l => l.classList.remove('active'));
+  el.classList.add('active');
+  renderAdminTable();
+}
+
+function renderAdminTable() {
+  const wrap = document.getElementById('adminTableWrap');
+  if (!wrap) return;
+  document.getElementById('adminTotalFarmers').textContent = farmers.length;
+  document.getElementById('adminTotalProducts').textContent = products.length;
+
+  if (adminTab === 'farmers') {
+    wrap.innerHTML = `<table class="admin-table"><thead><tr><th>ID</th><th>Farm Name</th><th>Location</th><th>Verified</th><th>Actions</th></tr></thead><tbody>
+      ${farmers.map(f => `<tr><td>#F00${f.id}</td><td>${f.name}</td><td>${f.location}</td><td>${f.verified ? '<span style="color:#2d6a4f;font-weight:700;">Yes</span>' : '<span style="color:#e76f51;">No</span>'}</td><td><button class="admin-action-btn btn-approve">Approve</button><button class="admin-action-btn btn-suspend">Suspend</button></td></tr>`).join('')}
+    </tbody></table>`;
+  } else if (adminTab === 'customers') {
+    wrap.innerHTML = `<table class="admin-table"><thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Orders</th><th>Status</th><th>Actions</th></tr></thead><tbody>
+      ${adminCustomers.map(c => `<tr><td>${c.id}</td><td>${c.name}</td><td>${c.email}</td><td>${c.orders}</td><td>${c.status === 'active' ? '<span style="color:#2d6a4f;font-weight:700;">Active</span>' : '<span style="color:#e76f51;">Suspended</span>'}</td><td><button class="admin-action-btn btn-approve">Activate</button><button class="admin-action-btn btn-suspend">Suspend</button></td></tr>`).join('')}
+    </tbody></table>`;
+  } else if (adminTab === 'products') {
+    wrap.innerHTML = `<table class="admin-table"><thead><tr><th>ID</th><th>Name</th><th>Category</th><th>Price</th><th>Farmer</th><th>Status</th></tr></thead><tbody>
+      ${products.map(p => `<tr><td>#P${String(p.id).padStart(3,'0')}</td><td>${p.name}</td><td>${p.category}</td><td>$${p.price.toFixed(2)}/${p.unit}</td><td>${farmers.find(f => f.id === p.farmerId)?.name || 'N/A'}</td><td>${p.status === 'in-stock' ? '<span style="color:#2d6a4f;font-weight:700;">In Stock</span>' : p.status === 'limited' ? '<span style="color:#c07e00;font-weight:700;">Limited</span>' : '<span style="color:#e76f51;font-weight:700;">Out</span>'}</td></tr>`).join('')}
+    </tbody></table>`;
+  } else if (adminTab === 'orders') {
+    wrap.innerHTML = `<table class="admin-table"><thead><tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Date</th><th>Status</th></tr></thead><tbody>
+      ${sampleOrders.map(o => `<tr><td>${o.id}</td><td>${o.customer}</td><td>${o.items.map(i => i.name).join(', ')}</td><td>$${o.total.toFixed(2)}</td><td>${o.date}</td><td>${o.status === 'completed' ? '<span style="color:#2d6a4f;font-weight:700;">Completed</span>' : o.status === 'pending' ? '<span style="color:#e76f51;font-weight:700;">Pending</span>' : '<span style="color:#c07e00;font-weight:700;">Processing</span>'}</td></tr>`).join('')}
+    </tbody></table>`;
+  }
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+function showToast(message, isError = false) {
+  const toast = document.getElementById('toastMsg');
+  const text = document.getElementById('toastText');
+  text.textContent = message;
+  toast.classList.toggle('error', isError);
+  toast.innerHTML = `<i class="fa-solid ${isError ? 'fa-circle-exclamation' : 'fa-circle-check'}"></i><span>${message}</span>`;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+function init() {
+  renderCategories();
+  renderFilterChips();
+  renderProducts();
+  renderFarmerOrders();
+  updateCartCount();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+
+// Update cart view when section shown
+const origShowSection = showSection;
+window.showSection = function(sectionId) {
+  if (sectionId === 'cartSection') renderCart();
+  if (sectionId === 'adminSection') renderAdminTable();
+  if (sectionId === 'farmerSection') renderFarmerOrders();
+  origShowSection(sectionId);
+};
+</script>
+</body>
+</html>
