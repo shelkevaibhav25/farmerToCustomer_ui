@@ -1,0 +1,117 @@
+<div class="master-container">
+  <!-- Tab Navigation -->
+  <div class="tabs">
+
+    <button [ngClass]="{'active': tabName==='role'}" class="tab-btn"
+      (click)="toggleForm('role')">Roles</button>
+    <button [ngClass]="{'active': tabName==='category'}" class="tab-btn" (click)="toggleForm('category')">Categories</button>
+  </div>
+  @if(tabName==='category'){
+  <!-- Category Tab Content -->
+  <div class="tab-content">
+    <div class="content-header">
+      <h2>Category Management</h2>
+    </div>
+
+    <!-- Category Input Section -->
+    <form [formGroup]="caregoryForm">
+      <div class="input-section">
+        <input type="text" formControlName="name" class="input-box" placeholder="Enter category name...">
+        @if(caregoryForm.controls['categoryId'].value == 0){
+           <button class="btn-primary" (click)="onSaveCategory()">Save</button>
+        }@else{
+           <button class="btn-primary" (click)="onUpdateCategory()">Update</button>
+        }
+        
+       
+      </div>
+    </form>
+
+    <!-- Category Table -->
+    <div class="table-container">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Category ID</th>
+            <th>Name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(category of categories(); let index = $index; track index){
+             <tr>
+            <td>{{category.categoryId}}</td>
+            <td><strong>{{category.name}}</strong></td>
+            <td class="actions-cell">
+              <button class="btn-icon btn-edit" title="Edit" (click)="onCategoryEdit(category)">&#9998;</button>
+              <button class="btn-icon btn-delete" title="Delete">&#128465;</button>
+            </td>
+          </tr>
+
+          }
+         
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  }
+  @else{
+  <!-- Roles Tab Content -->
+  <div class="tab-content">
+    <div class="content-header">
+      <h2>Role Management</h2>
+    </div>
+
+    <!-- Role Input Section -->
+     <form [formGroup]="roleForm">
+      <div class="input-section">
+        <input type="text" formControlName="roleName" class="input-box" placeholder="Enter category name...">
+        @if(roleForm.controls['roleId'].value == 0){
+           <button class="btn-primary" (click)="onSaveRole()">Save</button>
+        }
+        @else{
+          <button class="btn-primary" (click)="onUpdateRole()">Update</button>
+        }
+       
+        
+      </div>
+    </form>
+
+    <!-- Roles Table -->
+    <div class="table-container">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Role ID</th>
+            <th>Role Name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(role of roles;let index = $index; track index){
+          <tr>
+            <td>{{role.roleId}}</td>
+            <td><strong>{{role.roleName}}</strong></td>
+            <td class="actions-cell">
+              <button class="btn-icon btn-edit" title="Edit" (click)="onRoleEdit(role)">&#9998;</button>
+              <button class="btn-icon btn-delete" title="Delete">&#128465;</button>
+            </td>
+          </tr>
+
+          }
+         
+        
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  }
+
+
+
+
+
+</div>

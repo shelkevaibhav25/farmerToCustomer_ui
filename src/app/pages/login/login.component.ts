@@ -6,11 +6,11 @@ import { Roles } from '../../core/enums/Roles.enum';
 import { FormsModule } from '@angular/forms';
 import { LowerCasePipe, NgClass, NgFor, UpperCasePipe } from '@angular/common';
 import { CommonImports } from '../../core/constants/CommonImports';
-import { LoginResponse, RegisterRes } from '../../core/models/classes/api.response';
 import { Router } from '@angular/router';
 import { GlobalConstant } from '../../core/constants/constant';
 import { single } from 'rxjs';
 import { MasterService } from '../../core/services/master.service';
+import { ApiResponseModel, LoginResponseModel } from '../../core/models/classes/api.response';
 
 @Component({
   selector: 'app-login',
@@ -41,9 +41,10 @@ export class LoginComponent {
   onLogin(){
     debugger;
     this.userServ.onLogin(this.loginObj).subscribe({
-      next:(res:LoginResponse)=>{
+      next:(res:LoginResponseModel)=>{
         debugger
         localStorage.setItem(GlobalConstant.LOCAL_LOGIN_KEY,JSON.stringify(res.data));
+        localStorage.setItem(GlobalConstant.TOKEN_KEY, res?.token)
         this.userServ.isUserLoggedIn = true;
         this.router.navigateByUrl('/home')
         
@@ -85,7 +86,7 @@ export class LoginComponent {
   createAccount(){
 
     this.userServ.onCreateAccount(this.registerObj).subscribe({
-      next:(res:RegisterRes)=>{
+      next:(res:ApiResponseModel)=>{
         debugger;
         alert(res?.message);
         this.isLoginActive = true

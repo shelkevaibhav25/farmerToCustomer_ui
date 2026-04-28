@@ -1,12 +1,19 @@
-import { UserModel } from "./user.model";
+import { RolesModel, UserModel } from "./user.model";
 
-export interface LoginResponse{
+export interface LoginResponseModel{
     data:UserModel;
     message:string;
     token:string
 }
 
-export interface RegisterRes{
-    data:UserModel,
-    message:string
+export interface ApiResponseModel{
+    data:any;
+    message:string;
 }
+
+export interface IRole{
+    roleId:number;
+    roleName:string;
+
+}
+
