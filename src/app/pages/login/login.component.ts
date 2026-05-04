@@ -45,7 +45,7 @@ export class LoginComponent {
         debugger
         localStorage.setItem(GlobalConstant.LOCAL_LOGIN_KEY,JSON.stringify(res.data));
         localStorage.setItem(GlobalConstant.TOKEN_KEY, res?.token)
-        this.userServ.isUserLoggedIn = true;
+        this.userServ.onLogin$.next(true);
         this.router.navigateByUrl('/home')
         
       },

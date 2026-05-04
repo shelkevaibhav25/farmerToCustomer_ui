@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { GlobalConstant } from '../constants/constant';
 import { environment } from '../../../environments/environment';
 import { Observable, retry } from 'rxjs';
-import { Category, Role } from '../models/classes/Master.model';
+import { Category, FarmerProduct, Role } from '../models/classes/Master.model';
 import { ApiResponseModel } from '../models/classes/api.response';
 
 @Injectable({
@@ -36,5 +36,21 @@ export class MasterService {
   
   updateCategory(cateObj:Category):Observable<ApiResponseModel>{
     return this.http.put<ApiResponseModel>(`${environment.API_URL}${GlobalConstant.API_ENDPOINTS.UPDATE_CATEGORY}${cateObj.categoryId}`, cateObj)
+  }
+
+  getAllFarmerProducts():Observable<ApiResponseModel>{
+    return this.http.get<ApiResponseModel>(`${environment.API_URL}${GlobalConstant.API_ENDPOINTS.GET_FARMER_PRODUCTS}`)
+  }
+
+  createFarmerProduct(productObj:FarmerProduct):Observable<ApiResponseModel>{
+    return this.http.post<ApiResponseModel>(`${environment.API_URL}${GlobalConstant.API_ENDPOINTS.CREATE_FARMER_PRODUCT}`, productObj)
+  }
+
+  updateFarmerProduct(productObj:FarmerProduct):Observable<ApiResponseModel>{
+    return this.http.put<ApiResponseModel>(`${environment.API_URL}${GlobalConstant.API_ENDPOINTS.UPDATE_FARMER_PRODUCT}${productObj.farmerProductId}`, productObj)
+  }
+
+  deleteFarmerProduct(farmerProductId:number):Observable<ApiResponseModel>{
+    return this.http.delete<ApiResponseModel>(`${environment.API_URL}${GlobalConstant.API_ENDPOINTS.DELETE_FARMER_PRODUCT}${farmerProductId}`)
   }
 }

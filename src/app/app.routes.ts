@@ -4,7 +4,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { CategoryComponent } from './pages/category/category.component';
 import { authguardGuard } from './core/guards/authguard.guard';
 import { MasterComponent } from './pages/master/master.component';
-import { ProductComponent } from './pages/product/product.component';
+import { FarmerProductComponent } from './pages/farmer-product/farmer-product.component';
+import { ProductMasterComponent } from './pages/product-master/product-master.component';
 
 export const routes: Routes = [
     {
@@ -32,7 +33,12 @@ export const routes: Routes = [
     },
     {
         path:'product',
-        component:ProductComponent,
+        component:FarmerProductComponent,
         canActivate:[authguardGuard]
     },
+    {
+        path:'product-master',
+        component:ProductMasterComponent,
+        canActivate:[authguardGuard]
+    }
 ];

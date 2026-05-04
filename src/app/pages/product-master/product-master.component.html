@@ -1,0 +1,117 @@
+<div class="product-master-container">
+  <div class="tab-content">
+    <div class="content-header">
+      <div>
+        <h2>Product Master Management</h2>
+        <p>Manage product master data including name, category, description and images.</p>
+      </div>
+      <!-- <div class="operation-indicator">
+         @if(productForm.controls['productId'].value === 0){
+          <span class="indicator create-mode">Create Mode</span>
+         }@else{
+           <span class="indicator update-mode">Update Mode</span>
+         }
+        <button class="btn-refresh" type="button" title="Reset form" (click)="onResetForm()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 2.2" />
+          </svg>
+        </button>
+      </div> -->
+    </div>
+
+    <form [formGroup]="productForm" #formSection>
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label>Product Name</label>
+          <input type="text" class="input-box" formControlName="name" placeholder="Enter product name">
+        </div>
+
+        <div class="form-group">
+          <label>Category</label>
+          <select class="input-box" formControlName="categoryId">
+            <option [ngValue]="null">Select category</option>
+            @for(category of categories; let index = $index; track index){
+            <option [ngValue]="category.categoryId">{{category.name}}</option>
+            }
+
+          </select>
+        </div>
+
+        <div class="form-group form-group-full">
+          <label>Description</label>
+          <textarea class="input-box textarea-box" formControlName="description" placeholder="Enter product description"
+            rows="3"></textarea>
+        </div>
+
+        <div class="form-group form-group-full">
+          <label>Product Image URL</label>
+          <div class="image-input-row">
+            <input type="url" class="input-box url-input" formControlName="image" placeholder="Enter product image URL"
+              (input)="onImageUrlChange()">
+            <div class="preview-block">
+              <span class="preview-title">Image Preview</span>
+              <div class="image-preview">
+                <img id="previewImg" src="https://via.placeholder.com/240?text=Product+Preview" alt="Product Preview">
+                <div class="image-decoration" aria-hidden="true">
+                  <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
+                    <circle cx="32" cy="32" r="30" fill="rgba(255,255,255,0.9)" />
+                    <path d="M28 20c8-6 14 2 12 8-2 6-8 6-12 10-5-5-5-12 0-18z" fill="#4A7C3E" />
+                    <path d="M36 18c4-5 10-3 12 2 2 5-2 10-6 10-2-6-4-8-6-12z" fill="#71A74E" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        @if(productForm.controls['productId'].value === 0){
+          <button class="btn-primary" type="button" (click)="onSaveProduct()">Save</button>
+        }
+        @else{
+          <button class="btn-primary" type="button" (click)="onUpdateProduct()">Update</button>
+        }
+        
+         
+      </div>
+    </form>
+
+    <div class="table-container" #tableSection>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Image</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(product of products; let index = $index; track index){
+          <tr>
+            <td>{{index + 1}}</td>
+            <td><strong>{{product.name}}</strong></td>
+            <td>{{product.categoryName}}</td>
+            <td>{{product.description}}</td>
+            <td>
+              <div class="thumbnail">
+                <img [src]="product.image" alt="Tomato">
+              </div>
+            </td>
+            <td class="actions-cell">
+              <button class="btn-icon btn-edit" title="Edit" (click)="onEdit(product)" type="button">&#9998;</button>
+              <button class="btn-icon btn-delete" title="Delete" type="button" (click)="onDeleteProduct(product)">&#128465;</button>
+            </td>
+          </tr>
+
+          }
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

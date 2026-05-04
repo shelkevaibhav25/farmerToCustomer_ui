@@ -10,13 +10,22 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav mx-auto gap-1">
         <li class="nav-item"><a class="nav-link-custom" routerLink="/">Home</a></li>
-        <li class="nav-item"><a class="nav-link-custom" routerLink="/">Farmers</a></li>
         @if(loggedUserData){
-          <li class="nav-item"><a class="nav-link-custom" routerLink="/master">Master</a></li>
-          <li class="nav-item"><a class="nav-link-custom" routerLink="/product">Product</a></li>
+         
+          @if(loggedUserData.roleId == 1){
+            <li class="nav-item"><a class="nav-link-custom" routerLink="/master">Master</a></li>
+            <li class="nav-item"><a class="nav-link-custom" routerLink="/product-master">Product Master</a></li>
+          }@else if(loggedUserData.roleId == 2){
+             <li class="nav-item"><a class="nav-link-custom" routerLink="/product">Farmer Product</a></li>
+          }
+          @else{
+            <!-- customer related menus -->
+          }
+        
 
         }
         </ul>
+        
       <div class="d-flex align-items-center gap-3 mt-2 mt-lg-0">
         <!-- Show when user is NOT logged in -->
         

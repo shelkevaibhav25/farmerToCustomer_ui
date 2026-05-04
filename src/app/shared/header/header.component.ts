@@ -1,8 +1,9 @@
 
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { GlobalConstant } from '../../core/constants/constant';
 import { UserModel } from '../../core/models/classes/user.model';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { UserServiceService } from '../../core/services/user-service.service';
 
 @Component({
   selector: 'app-header',
@@ -14,8 +15,21 @@ import { RouterLink } from '@angular/router';
 export class HeaderComponent {
 
 loggedUserData!: UserModel;
+userServ = inject(UserServiceService)
+router = inject(Router)
 
 constructor(){
+  this.readLoggedData();
+  this.userServ.onLogin$.subscribe({
+    next:()=>{
+      this.readLoggedData();
+    }
+  })
+  
+}
+
+
+readLoggedData(){
   const localData = localStorage.getItem(GlobalConstant.LOCAL_LOGIN_KEY)
   if(localData != null){
     this.loggedUserData = JSON.parse(localData)
@@ -25,6 +39,7 @@ constructor(){
 
   logOFF(){
     localStorage.removeItem(GlobalConstant.LOCAL_LOGIN_KEY)
+    
   }
 
 }

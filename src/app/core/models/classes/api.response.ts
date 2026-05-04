@@ -17,3 +17,13 @@ export interface IRole{
 
 }
 
+export interface IMasterProducts{
+     productId: number;
+    name: string;
+    categoryId: number;
+    description: string;
+    image: string;
+    categoryName:string
+
+}
+

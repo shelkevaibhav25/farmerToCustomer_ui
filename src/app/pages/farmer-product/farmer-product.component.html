@@ -1,0 +1,108 @@
+<div class="product-container">
+  <div class="tab-content">
+    <div class="content-header">
+      <div>
+        <h2>Product Management</h2>
+        <p>Manage farmer product availability, price, quantity and status.</p>
+      </div>
+      <button class="btn-secondary" type="button" (click)="resetForm()">Clear</button>
+    </div>
+
+    <form [formGroup]="productForm">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Farmer ID</label>
+          <input type="number" formControlName="farmerId" class="input-box" placeholder="Enter farmer id">
+        </div>
+
+        <div class="form-group">
+          <label>Product ID</label>
+          <input type="number" formControlName="productId" class="input-box" placeholder="Enter product id">
+        </div>
+
+        <div class="form-group">
+          <label>Price Per Kg</label>
+          <input type="number" formControlName="pricePerKg" class="input-box" placeholder="Enter price">
+        </div>
+
+        <div class="form-group">
+          <label>Available Quantity</label>
+          <input type="number" formControlName="availableQuantity" class="input-box" placeholder="Enter quantity">
+        </div>
+
+        <div class="form-group">
+          <label>Available Date</label>
+          <input type="datetime-local" formControlName="availableDate" class="input-box">
+        </div>
+
+        <div class="form-group">
+          <label>Status</label>
+          <select formControlName="status" class="input-box">
+            @for(status of statusOptions; track status){
+              <option [value]="status">{{status}}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        @if(productForm.controls['farmerProductId'].value == 0){
+          <button class="btn-primary" type="button" (click)="onSaveProduct()">Save</button>
+        }@else{
+          <button class="btn-primary" type="button" (click)="onUpdateProduct()">Update</button>
+        }
+      </div>
+    </form>
+
+    <div class="table-container">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Farmer Product ID</th>
+            <th>Farmer ID</th>
+            <th>Product ID</th>
+            <th>Price / Kg</th>
+            <th>Quantity</th>
+            <th>Available Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if(isLoading()){
+            <tr>
+              <td colspan="8" class="empty-message">Loading products...</td>
+            </tr>
+          }@else if(farmerProducts().length === 0){
+            <tr>
+              <td colspan="8" class="empty-message">No product records found.</td>
+            </tr>
+          }@else{
+            @for(product of farmerProducts(); let index = $index; track product.farmerProductId || index){
+              <tr>
+                <td>{{product.farmerProductId}}</td>
+                <td>{{product.farmerId}}</td>
+                <td><strong>{{product.productId}}</strong></td>
+                <td>{{product.pricePerKg | currency:'INR':'symbol':'1.0-2'}}</td>
+                <td>{{product.availableQuantity}} kg</td>
+                <td>{{product.availableDate | date:'mediumDate'}}</td>
+                <td>
+                  <span class="status-badge" [ngClass]="{
+                    'status-available': product.status === 'Available',
+                    'status-limited': product.status === 'Limited',
+                    'status-out': product.status === 'Out of Stock',
+                    'status-inactive': product.status === 'Inactive'
+                  }">{{product.status}}</span>
+                </td>
+                <td class="actions-cell">
+                  <button class="btn-icon btn-edit" title="Edit" type="button" (click)="onProductEdit(product)">&#9998;</button>
+                  <button class="btn-icon btn-delete" title="Delete" type="button" (click)="onDeleteProduct(product)">&#128465;</button>
+                </td>
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
