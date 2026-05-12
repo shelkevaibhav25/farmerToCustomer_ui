@@ -46,6 +46,7 @@ export class LoginComponent {
         localStorage.setItem(GlobalConstant.LOCAL_LOGIN_KEY,JSON.stringify(res.data));
         localStorage.setItem(GlobalConstant.TOKEN_KEY, res?.token)
         this.userServ.onLogin$.next(true);
+        this.userServ.getLoggedUser();
         this.router.navigateByUrl('/home')
         
       },

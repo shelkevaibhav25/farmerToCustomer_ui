@@ -11,12 +11,22 @@ import { ApiResponseModel, LoginResponseModel } from '../models/classes/api.resp
 })
 export class UserServiceService {
 
-  constructor() { }
+  constructor() {
+    this.getLoggedUser();
+   }
 
    http = inject(HttpClient)
    apiUrl:string = environment.API_URL
    isUserLoggedIn:boolean = false;
    onLogin$ : Subject<boolean> = new Subject<boolean>()
+   loggedInuser!:UserModel
+
+   getLoggedUser(){
+    const localData = localStorage.getItem(GlobalConstant.LOCAL_LOGIN_KEY);
+    if(localData!=null){
+      this.loggedInuser = JSON.parse(localData);
+    }
+   }
   
   onLogin(obj:UserLogin):Observable<LoginResponseModel>{
     return this.http.post<LoginResponseModel>(`${this.apiUrl}${GlobalConstant.API_ENDPOINTS.LOGIN}`,obj)
@@ -30,6 +40,12 @@ export class UserServiceService {
     return this.http.post<ApiResponseModel>(`${environment.API_URL}${GlobalConstant.API_ENDPOINTS.CREATE_USER}`, obj)
 
   }
+
+  getAllUsers():Observable<ApiResponseModel>{
+     return this.http.get<ApiResponseModel>(`${this.apiUrl}${GlobalConstant.API_ENDPOINTS.GET_USERS}`)
+  }
+
+
 
   
 

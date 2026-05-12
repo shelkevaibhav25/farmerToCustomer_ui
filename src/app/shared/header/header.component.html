@@ -15,6 +15,7 @@
           @if(loggedUserData.roleId == 1){
             <li class="nav-item"><a class="nav-link-custom" routerLink="/master">Master</a></li>
             <li class="nav-item"><a class="nav-link-custom" routerLink="/product-master">Product Master</a></li>
+            <li class="nav-item"><a class="nav-link-custom" routerLink="/product">Farmer Product</a></li>
           }@else if(loggedUserData.roleId == 2){
              <li class="nav-item"><a class="nav-link-custom" routerLink="/product">Farmer Product</a></li>
           }
@@ -53,12 +54,65 @@
         <!-- Show when user IS logged in -->
 
 
-        <div class="cart-badge ms-2">
+        <div class="cart-badge ms-2" (click)="openCartModel()">
           <i class="fa-solid fa-basket-shopping"></i>
-          <span class="badge" id="cartCount">0</span>
+          <span class="badge" id="cartCount">{{cartItems().length}}</span>
         </div>
       </div>
 
     </div>
   </div>
 </nav>
+
+<!-- Cart Popup Modal -->
+<div class="cart-popup-backdrop" #shoppingCart>
+  <div class="cart-popup-container">
+    <!-- Cart Header -->
+    <div class="cart-popup-header">
+      <h5 class="cart-popup-title">Shopping Cart</h5>
+      <button class="cart-popup-close" (click)="closeShoppingCartModel()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <!-- Cart Items List -->
+    <div class="cart-popup-body">
+      <!-- Cart Item 1 -->
+       @for(item of cartItems(); track item.cartId){
+        <div class="cart-item">
+        <div class="cart-item-image">
+          <img [src]="item?.productImage" alt="Product Image" />
+        </div>
+        <div class="cart-item-details">
+          <h6 class="cart-item-name">{{item.productName}}</h6>
+          <p class="cart-item-farmer">By: {{item.farmerName}}</p>
+          <p class="cart-item-price">Rs. {{item.pricePerKg}} / kg</p>
+          <div class="cart-item-qty">
+            <span class="qty-label">Quantity:{{item.quantity}}</span>
+          </div>
+        </div>
+        <button class="cart-item-remove">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </div>
+
+       }
+      
+    </div>
+
+    <!-- Cart Footer -->
+    <div class="cart-popup-footer">
+      <div class="cart-total">
+        <span class="total-label">Total:</span>
+        <span class="total-amount">Rs. {{totalPrice}}</span>
+      </div>
+      <button class="btn-checkout">
+        Proceed to Checkout
+        <i class="fa-solid fa-arrow-right ms-2"></i>
+      </button>
+      <button class="btn-continue-shopping">
+        Continue Shopping
+      </button>
+    </div>
+  </div>
+</div>

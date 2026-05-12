@@ -7,6 +7,7 @@ import { ApiResponseModel, IRole } from '../../core/models/classes/api.response'
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RolesModel } from '../../core/models/classes/user.model';
 import { Irole } from '../../core/interceptors/Roles.module';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-master',
@@ -25,6 +26,7 @@ export class MasterComponent {
 
   roleForm!:FormGroup;
   caregoryForm!:FormGroup
+  subList:Subscription[] = []
 
   formBuilder = inject(FormBuilder)
 
@@ -79,7 +81,7 @@ export class MasterComponent {
 
   getRoles(){
 
-    this.masterServ.getAllRoles().subscribe({
+    const roles = this.masterServ.getAllRoles().subscribe({
       next:(res:ApiResponseModel)=>{
         console.log("Roles: ", res);
 
@@ -90,11 +92,13 @@ export class MasterComponent {
           console.log("Error occured: ", error)
       }
     })
+
+    this.subList.push(roles)
     
   }
 
   getCategories(){
-    this.masterServ.getAllCategories().subscribe({
+   const category =  this.masterServ.getAllCategories().subscribe({
       next:(res:ApiResponseModel)=>{
         this.categories.set(res?.data);
         console.log("Categories: ", this.categories)
@@ -103,6 +107,8 @@ export class MasterComponent {
         console.log("Error occured: ", error)
       }
     })
+
+    this.subList.push(category)
   }
 
 
@@ -192,6 +198,12 @@ export class MasterComponent {
       }
     })
    
+  }
+
+  ngOnDestroy(){
+    this.subList.forEach(element => {
+      element.unsubscribe();
+    })
   }
   
 

@@ -1,69 +1,231 @@
 <!-- HERO SECTION -->
 <div id="heroSection" class="page-section active">
-  <div id="heroContent" style="min-height:88vh; background:linear-gradient(135deg,#1b4332 0%,#2d6a4f 60%,#52b788 100%); position:relative; overflow:hidden; display:flex; align-items:center;">
-    <div style="position:absolute;inset:0;background:url('https://images.pexels.com/photos/1459339/pexels-photo-1459339.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover no-repeat;opacity:0.18;"></div>
-    <div class="container py-5" style="position:relative;z-index:2;">
-      <div class="row align-items-center g-4">
-        <div class="col-lg-6">
-          <div class="hero-content">
-            <div class="hero-badge"><i class="fa-solid fa-leaf me-2"></i>100% Farm Fresh</div>
-            <h1 class="hero-title">From <span>Farm</span> To Your Table, Directly.</h1>
-            <p class="hero-sub">Skip the middlemen. Buy directly from local farmers. Fresh produce, fair prices, and total transparency from seed to shelf.</p>
-            <div class="d-flex flex-wrap gap-2">
-              <button class="btn-hero-primary" onclick="showSection('productsSection')"><i class="fa-solid fa-store me-2"></i>Shop Now</button>
-              <button class="btn-hero-secondary" onclick="showSection('authSection')"><i class="fa-solid fa-tractor me-2"></i>Become a Farmer</button>
-            </div>
-            <div class="hero-stats">
-              <div>
-                <div class="hero-stat-num">240+</div>
-                <div class="hero-stat-label">Farmers</div>
-              </div>
-              <div>
-                <div class="hero-stat-num">1,800+</div>
-                <div class="hero-stat-label">Products</div>
-              </div>
-              <div>
-                <div class="hero-stat-num">12K+</div>
-                <div class="hero-stat-label">Customers</div>
-              </div>
-            </div>
+  <div class="container py-5" style="position:relative; z-index:2;">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-7">
+        <div class="hero-content">
+          <div class="hero-badge"><i class="fa-solid fa-leaf me-2"></i>100% Farm Fresh</div>
+          <h1 class="hero-title">From <span>Farm</span> To Your Table, Directly.</h1>
+          <p class="hero-sub">Skip the middlemen. Buy directly from local farmers. Fresh produce, fair prices, and total transparency from seed to shelf.</p>
+          <div class="d-flex flex-wrap gap-2">
+            <button class="btn-hero-primary" onclick="showSection('productsSection')"><i class="fa-solid fa-store me-2"></i>Shop Now</button>
+            <button class="btn-hero-secondary" (click)="scrollToFarmers()"><i class="fa-solid fa-tractor me-2"></i>Meet Our Farmers</button>
           </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="hero-img-wrap" style="position:relative;">
-            <img src="https://images.pexels.com/photos/2255935/pexels-photo-2255935.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Fresh Vegetables" class="hero-img-main" />
-            <img src="https://images.pexels.com/photos/461382/pexels-photo-461382.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Farmer" class="hero-img-float" />
+          <div class="hero-stats">
+            <div>
+              <div class="hero-stat-num">240+</div>
+              <div class="hero-stat-label">Farmers</div>
+            </div>
+            <div>
+              <div class="hero-stat-num">1,800+</div>
+              <div class="hero-stat-label">Products</div>
+            </div>
+            <div>
+              <div class="hero-stat-num">12K+</div>
+              <div class="hero-stat-label">Customers</div>
+            </div>
           </div>
         </div>
       </div>
+      <div class="col-lg-5">
+        <div class="hero-img-wrap" style="position:relative;">
+          <img src="https://images.pexels.com/photos/2255935/pexels-photo-2255935.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Fresh Vegetables" class="hero-img-main" />
+          <img src="https://images.pexels.com/photos/461382/pexels-photo-461382.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Farmer" class="hero-img-float" />
+        </div>
+      </div>
     </div>
-  </div>
-
-  <!-- Features strip -->
-  <div style="background:#fff;padding:36px 0;border-bottom:1px solid #f0e9c5;">
-    <div class="container">
-      <div class="row g-3 text-center">
-        <div class="col-6 col-md-3">
-          <div style="color:#2d6a4f;font-size:1.6rem;margin-bottom:8px;"><i class="fa-solid fa-truck-fast"></i></div>
-          <div style="font-weight:700;font-size:0.92rem;">Same Day Delivery</div>
-          <div style="font-size:0.78rem;color:#8aab8f;">Order by noon, get by evening</div>
-        </div>
-        <div class="col-6 col-md-3">
-          <div style="color:#2d6a4f;font-size:1.6rem;margin-bottom:8px;"><i class="fa-solid fa-shield-halved"></i></div>
-          <div style="font-weight:700;font-size:0.92rem;">Quality Guaranteed</div>
-          <div style="font-size:0.78rem;color:#8aab8f;">100% satisfaction or refund</div>
-        </div>
-        <div class="col-6 col-md-3">
-          <div style="color:#2d6a4f;font-size:1.6rem;margin-bottom:8px;"><i class="fa-solid fa-leaf"></i></div>
-          <div style="font-weight:700;font-size:0.92rem;">Certified Organic</div>
-          <div style="font-size:0.78rem;color:#8aab8f;">Verified organic farms</div>
-        </div>
-        <div class="col-6 col-md-3">
-          <div style="color:#2d6a4f;font-size:1.6rem;margin-bottom:8px;"><i class="fa-solid fa-handshake"></i></div>
-          <div style="font-weight:700;font-size:0.92rem;">Fair Trade</div>
-          <div style="font-size:0.78rem;color:#8aab8f;">Farmers earn 90% of price</div>
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="hero-feature-strip" style="background:#fff;padding:36px 24px;border-radius:24px;border:1px solid #f0e9c5;">
+          <div class="row g-3 text-center">
+            <div class="col-6 col-md-3">
+              <div style="color:#2d6a4f;font-size:1.6rem;margin-bottom:8px;"><i class="fa-solid fa-truck-fast"></i></div>
+              <div style="font-weight:700;font-size:0.92rem;">Same Day Delivery</div>
+              <div style="font-size:0.78rem;color:#8aab8f;">Order by noon, get by evening</div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div style="color:#2d6a4f;font-size:1.6rem;margin-bottom:8px;"><i class="fa-solid fa-shield-halved"></i></div>
+              <div style="font-weight:700;font-size:0.92rem;">Quality Guaranteed</div>
+              <div style="font-size:0.78rem;color:#8aab8f;">100% satisfaction or refund</div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div style="color:#2d6a4f;font-size:1.6rem;margin-bottom:8px;"><i class="fa-solid fa-leaf"></i></div>
+              <div style="font-weight:700;font-size:0.92rem;">Certified Organic</div>
+              <div style="font-size:0.78rem;color:#8aab8f;">Verified organic farms</div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div style="color:#2d6a4f;font-size:1.6rem;margin-bottom:8px;"><i class="fa-solid fa-handshake"></i></div>
+              <div style="font-weight:700;font-size:0.92rem;">Fair Trade</div>
+              <div style="font-size:0.78rem;color:#8aab8f;">Farmers earn 90% of price</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Categories + Farmer Products Section -->
+<section id="productsSection" class="page-section active home-products-section">
+    <div class="container">
+      <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+        <div>
+          <span class="section-label">Shop By Category</span>
+          <h2 class="section-title">Fresh Products From Local Farmers</h2>
+          <p class="section-sub">Browse admin-created categories and discover fresh products listed directly by farmers.</p>
+        </div>
+
+        <button type="button" class="btn-hero-primary home-view-all-btn">
+          View All
+          <i class="fa-solid fa-arrow-right ms-2"></i>
+        </button>
+      </div>
+
+      <div class="home-category-tabs d-flex gap-2 mb-4 pb-2">
+        <button type="button" class="filter-chip" [class.active-filter]="selectedCategoryId === null" (click)="loadAllProducts()">All</button>
+        @for(category of categories; let index = $index; track index){
+           <button type="button" (click)="getAllFarmerProductsByCatId(category)" [class.active-filter]="selectedCategoryId === category.categoryId" class="filter-chip">{{category.name}}</button>
+
+        }
+      </div>
+
+      <div class="row g-4 home-products-carousel flex-nowrap">
+        @for(product of productByFarmer(); track product.productId){
+          <div class="col-10 col-sm-6 col-md-4 col-lg-3 home-product-slide">
+            <div class="product-card">
+              <div class="product-img-wrap">
+                @defer (on viewport){
+                   <img class="product-img" [ngSrc]="product.productImage" width="600" height="400" alt="{{product.productName}}" >
+                }@placeholder{
+                  <div class="image-placeholder">Loading...</div>
+                }
+               <span class="product-badge organic">{{product.status}}</span>
+              </div>
+
+            <div class="product-body">
+              <h3 class="product-name">{{product.productName}}</h3>
+              <div class="product-farmer">
+                <i class="fa-solid fa-user-tie"></i>
+                {{product.farmerName}}
+              </div>
+
+              <div class="d-flex justify-content-between align-items-end gap-2">
+                <div>
+                  <div class="product-price">Rs. {{product.pricePerKg}} <span>/ kg</span></div>
+                </div>
+
+                <div class="home-product-date">{{product.availableDate | date}}</div>
+              </div>
+
+              <button (click)="openCartModel(product)" type="button" class="btn-add-cart">
+                <i class="fa-solid fa-basket-shopping me-2"></i>
+                Add to Cart
+              </button>
+            </div>
+          </div>
+          </div>
+        }
+      </div>
+    
+    </div>
+  </section>
+  @if(selectedCartProduct()){
+    <div class="modal-backdrop-custom" >
+    <div class="modal-wrapper">
+      <div class="modal-content">
+        <div class="modal-header d-flex justify-content-between align-items-center">
+          <div>
+            <h5 class="modal-title">Add to Cart</h5>
+            <p class="modal-subtitle">Review the selected product and enter quantity before saving.</p>
+          </div>
+          <button type="button" class="btn-close" (click)="onCancelClickModalPopup()">×</button>
+        </div>
+        <div class="modal-body p-4">
+          <div class="row g-4 align-items-center">
+            <div class="col-md-5">
+              <img class="modal-product-img" [src]="selectedCartProduct()?.productImage" [alt]="selectedCartProduct()?.productName">
+            </div>
+            <div class="col-md-7">
+              <div class="detail-row">
+                <div>
+                  <div class="detail-label">Product</div>
+                  <div class="detail-value">{{selectedCartProduct()?.productName}}</div>
+                </div>
+              </div>
+              <div class="detail-row">
+                <div>
+                  <div class="detail-label">Farmer</div>
+                  <div class="detail-value">{{selectedCartProduct()?.farmerName}}</div>
+                </div>
+              </div>
+              <div class="detail-row">
+                <div class="availability-tag in-stock">
+                  <i class="fa-solid fa-check-circle me-2"></i>{{selectedCartProduct()?.status}}
+                </div>
+              </div>
+              <div class="detail-row">
+                <div>
+                  <div class="detail-label">Price</div>
+                  <div class="detail-value">Rs. {{selectedCartProduct()?.pricePerKg}} / kg</div>
+                </div>
+              </div>
+              <div class="detail-row">
+                <div class="detail-label">Quantity</div>
+                <input type="number" min="1" class="qty-input" [(ngModel)]="cartQuantity" (input)="calculateTotalEstimate()" />
+              </div>
+              <div class="detail-row estimated-total-section">
+                <div class="detail-label">Estimated Total</div>
+                <div class="estimated-total">Rs. {{estimatedTotal()}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-end gap-3 p-3">
+          <button type="button" class="btn-hero-secondary" (click)="onCancelClickModalPopup()" >Cancel</button>
+          <button type="button" class="btn-hero-primary" (click)="onSaveSelectedProduct()" >Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  }
+  
+
+  <!-- Meet Our Farmers Section -->
+
+  <!-- Meet Our Farmers Section -->
+  <section id="farmersSection" class="farmers-section">
+    <div class="container">
+      <div class="text-center mb-5">
+        <span class="section-label">Our Community</span>
+        <h2 class="section-title">Meet Our Farmers</h2>
+        <p class="section-sub">Meet the trusted farmers behind your fresh produce. Simple profiles, trusted quality, and the humans growing what you eat.</p>
+      </div>
+
+      <div class="farmers-carousel">
+        @for(farmer of farmers(); let index = $index; track index){ 
+          <div class="farmer-card farmer-carousel-item">
+            <div class="farmer-avatar">
+              <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=400" [alt]="farmer.name" class="farmer-img">
+            </div>
+            <div class="farmer-card-body">
+              <h3 class="farmer-name">{{farmer.name}}</h3>
+              <p class="farmer-location"><i class="fa-solid fa-map-marker-alt"></i>{{farmer.address}}</p>
+              <div class="farmer-rating">
+                <span>4.{{8 - (index % 3)}}</span>
+                <i class="fa-solid fa-star"></i>
+              </div>
+              <div class="farmer-tags">
+                <span>Organic</span>
+                <span>Fresh</span>
+                <span>Local</span>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+        
+    
+    </div>
+  </section>
+

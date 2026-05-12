@@ -3,27 +3,37 @@ import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MasterService } from '../../core/services/master.service';
 import { FarmerProduct } from '../../core/models/classes/Master.model';
-import { ApiResponseModel } from '../../core/models/classes/api.response';
+import { ApiResponseModel, IMasterProducts } from '../../core/models/classes/api.response';
+import { UserModel } from '../../core/models/classes/user.model';
+import { GlobalConstant } from '../../core/constants/constant';
+import { IProduct } from '../../core/models/interfaces/farmerProduct.interface';
+import { ProductMasterService } from '../../core/services/product-master.service';
+import { HideForFarmerDirective } from '../../shared/directives/hide-for-farmer.directive';
+import { UserServiceService } from '../../core/services/user-service.service';
 
 @Component({
   selector: 'app-farmer-product',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, HideForFarmerDirective],
   templateUrl: './farmer-product.component.html',
   styleUrl: './farmer-product.component.css'
 })
 export class FarmerProductComponent {
   private formBuilder = inject(FormBuilder);
   private masterServ = inject(MasterService);
+  private productMasterServ = inject(ProductMasterService)
+  userService = inject(UserServiceService);
 
-  farmerProducts = signal<FarmerProduct[]>([]);
+  farmerProducts = signal<IProduct[]>([]);
   isLoading = signal(false);
+  loggedInuser: UserModel = new UserModel();
+  products: IMasterProducts[]= []
 
   statusOptions:string[] = ['Available', 'Limited', 'Out of Stock', 'Inactive'];
 
   productForm = this.formBuilder.group({
     farmerProductId: [0],
-    farmerId: [0, [Validators.required, Validators.min(1)]],
+    farmerId: this.loggedInuser.userId,
     productId: [0, [Validators.required, Validators.min(1)]],
     pricePerKg: [0, [Validators.required, Validators.min(1)]],
     availableQuantity: [0, [Validators.required, Validators.min(1)]],
@@ -32,12 +42,55 @@ export class FarmerProductComponent {
   });
 
   constructor(){
-    this.getFarmerProducts();
+
+    // const localData = localStorage.getItem(GlobalConstant.LOCAL_LOGIN_KEY);
+    // if(localData!=null){
+    //   this.loggedInuser = JSON.parse(localData);
+    // }
+    this.loggedInuser = this.userService.loggedInuser;
+
+    this.getProducts();
+    
+  }
+
+  getProducts(){
+    this.productMasterServ.getAllProducts().subscribe({
+      next:(res:ApiResponseModel)=>{
+          this.products = res?.data;
+      },
+      error:(error:any)=>{
+        console.log("error occured")
+      }
+    })
+  }
+
+
+  ngOnInit(){
+    if(this.loggedInuser.roleId === 1){
+      this.getFarmerProducts();
+    }
+    else{
+      this.getLoggedInFarmerProducts();
+    }
   }
 
   getFarmerProducts(){
     this.isLoading.set(true);
     this.masterServ.getAllFarmerProducts().subscribe({
+      next:(res:ApiResponseModel)=>{
+        this.farmerProducts.set(Array.isArray(res?.data) ? res.data : []);
+        this.isLoading.set(false);
+      },
+      error:(error:any)=>{
+        console.log("Error occured: ", error);
+        this.isLoading.set(false);
+      }
+    })
+  }
+
+  getLoggedInFarmerProducts(){
+    this.isLoading.set(true);
+    this.masterServ.getAllFarmerProductsLoggedFamer(this.loggedInuser.userId).subscribe({
       next:(res:ApiResponseModel)=>{
         this.farmerProducts.set(Array.isArray(res?.data) ? res.data : []);
         this.isLoading.set(false);
@@ -138,7 +191,7 @@ export class FarmerProductComponent {
     const formValue = this.productForm.getRawValue();
     return {
       farmerProductId: Number(formValue.farmerProductId ?? 0),
-      farmerId: Number(formValue.farmerId ?? 0),
+      farmerId: Number(this.loggedInuser.userId ?? 0),
       productId: Number(formValue.productId ?? 0),
       pricePerKg: Number(formValue.pricePerKg ?? 0),
       availableQuantity: Number(formValue.availableQuantity ?? 0),

@@ -38,8 +38,19 @@ export class MasterService {
     return this.http.put<ApiResponseModel>(`${environment.API_URL}${GlobalConstant.API_ENDPOINTS.UPDATE_CATEGORY}${cateObj.categoryId}`, cateObj)
   }
 
+  //farmer product API - starts
+
   getAllFarmerProducts():Observable<ApiResponseModel>{
     return this.http.get<ApiResponseModel>(`${environment.API_URL}${GlobalConstant.API_ENDPOINTS.GET_FARMER_PRODUCTS}`)
+  }
+
+   getAllFarmerProductsByCatid(id:number):Observable<ApiResponseModel>{
+    return this.http.get<ApiResponseModel>(`${environment.API_URL}${GlobalConstant.API_ENDPOINTS.GET_ALL_FARMER_PRODUCTS_BYCATID}${id}`)
+  }
+
+
+  getAllFarmerProductsLoggedFamer(id:number):Observable<ApiResponseModel>{
+    return this.http.get<ApiResponseModel>(`${environment.API_URL}${GlobalConstant.API_ENDPOINTS.GET_FARMER_PRODUCTS_BYID}${id}`)
   }
 
   createFarmerProduct(productObj:FarmerProduct):Observable<ApiResponseModel>{
@@ -53,4 +64,6 @@ export class MasterService {
   deleteFarmerProduct(farmerProductId:number):Observable<ApiResponseModel>{
     return this.http.delete<ApiResponseModel>(`${environment.API_URL}${GlobalConstant.API_ENDPOINTS.DELETE_FARMER_PRODUCT}${farmerProductId}`)
   }
+
+    //farmer product API - ends
 }
