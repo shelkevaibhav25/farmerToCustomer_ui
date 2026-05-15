@@ -91,7 +91,7 @@
             <span class="qty-label">Quantity:{{item.quantity}}</span>
           </div>
         </div>
-        <button class="cart-item-remove">
+        <button class="cart-item-remove" (click)="deleteCartItem(item)">
           <i class="fa-solid fa-trash"></i>
         </button>
       </div>
@@ -106,7 +106,7 @@
         <span class="total-label">Total:</span>
         <span class="total-amount">Rs. {{totalPrice}}</span>
       </div>
-      <button class="btn-checkout">
+      <button (click)="checkOut()" class="btn-checkout">
         Proceed to Checkout
         <i class="fa-solid fa-arrow-right ms-2"></i>
       </button>

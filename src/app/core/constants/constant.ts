@@ -28,7 +28,11 @@ export const GlobalConstant = {
         DELETE_MASTER_PRODUCT:'farmerProducts/delete-product/',
 
         ADD_TO_CART:"farmerCart/add-to-cart",
-        GET_CART_ITEMS:"farmerCart/get-cart-by-farmer-with-joins/"
+        GET_CART_ITEMS:"farmerCart/get-cart-by-customer-with-joins/",
+        DELETE_CART_ITEM_BY_CARTID:"farmerCart/delete-cart/",
+
+        PLACE_ORDER:"farmerOrders/create-order"
+
         
     },
     VALIDATION_MESSAGE:{

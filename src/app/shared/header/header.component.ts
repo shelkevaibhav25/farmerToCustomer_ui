@@ -18,11 +18,11 @@ import { ICartItems } from '../../core/models/interfaces/cart.interface';
 })
 export class HeaderComponent implements OnInit {
 
-loggedUserData!: UserModel;
-@ViewChild('shoppingCart') shoppingCartModel!: ElementRef
+  loggedUserData: UserModel | null = null;
+  @ViewChild('shoppingCart') shoppingCartModel!: ElementRef
 
-cartItems = signal<ICartItems[]>([])
-totalPrice:number = 0
+  cartItems = signal<ICartItems[]>([])
+  totalPrice:number = 0
 
 
 
@@ -36,45 +36,51 @@ constructor(){
   this.userServ.onLogin$.subscribe({
     next:()=>{
       this.readLoggedData();
+      this.getCartItems();
     }
   })
-  
 }
 
 ngOnInit(){
-  console.log("NgOninti executed")
- this.getCartItems();
-  
+  console.log("NgOnInit executed")
+  this.readLoggedData();
+  this.getCartItems();
   this.orderService.addToCart$.subscribe(()=>{
-    debugger;
-       this.getCartItems();
+    this.getCartItems();
   })
- 
 }
 
 
 readLoggedData(){
   const localData = localStorage.getItem(GlobalConstant.LOCAL_LOGIN_KEY)
-  if(localData != null){
-    this.loggedUserData = JSON.parse(localData)
+  if(localData){
+    this.loggedUserData = JSON.parse(localData) as UserModel
     console.log("LocalData: ", this.loggedUserData)
+  } else {
+    this.loggedUserData = null
+    console.log("Header: no logged user data found")
   }
 }
 
   logOFF(){
-  localStorage.removeItem(GlobalConstant.LOCAL_LOGIN_KEY)
-  this.router.navigateByUrl('/login');
+    localStorage.removeItem(GlobalConstant.LOCAL_LOGIN_KEY)
+    this.router.navigateByUrl('/login');
   }
 
 
   getCartItems(){
-   debugger;
-    console.log("Looged in user inside cart item: ",this.loggedUserData?.userId)
-    this.orderService.getCartItems(this.loggedUserData?.userId).subscribe({
+    const userId = this.loggedUserData?.userId ?? 0
+    console.log("Logged in user inside cart item: ", userId)
+    if (!userId) {
+      console.warn('Cannot fetch cart items: missing userId', this.loggedUserData)
+      return
+    }
+
+    this.orderService.getCartItems(userId).subscribe({
       next:(res:ApiResponseModel)=>{
         console.log(res)
-        this.cartItems.set(res?.data);
-         this.calculateTotalPrice();
+        this.cartItems.set(Array.isArray(res?.data) ? res.data : [])
+        this.calculateTotalPrice();
       },
       error:(error:any)=>{
         console.log(error)
@@ -100,6 +106,30 @@ readLoggedData(){
    this.cartItems()?.forEach((item:ICartItems)=>{
       this.totalPrice = this.totalPrice + (item.quantity * item.pricePerKg)
     })
+  }
+
+  deleteCartItem(cartItem:ICartItems){
+    const isDelete = confirm("Are you sure you want to delete the product?")
+    if(isDelete){
+      this.orderService.deleteCartItem(cartItem.cartId).subscribe({
+      next:(res:ApiResponseModel)=>{
+        alert("Cart Item Deleted Successfully!")
+        this.cartItems.update(prev => prev.filter((item:ICartItems)=> item.cartId != cartItem.cartId))
+        this.calculateTotalPrice();
+        
+
+      },
+      error:(error:any)=>{
+        alert("Failed to delete cart item!")
+      }
+    })
+    }
+    
+  }
+
+  checkOut(){
+    this.router.navigate(['/checkout']);
+    this.closeShoppingCartModel();
   }
 
 }

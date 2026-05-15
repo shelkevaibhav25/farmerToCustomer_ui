@@ -172,6 +172,7 @@
               <div class="detail-row">
                 <div class="detail-label">Quantity</div>
                 <input type="number" min="1" class="qty-input" [(ngModel)]="cartQuantity" (input)="calculateTotalEstimate()" />
+                <!-- <span *ngIf="cartQuantity < 1">Please add atleast one quantity</span> -->
               </div>
               <div class="detail-row estimated-total-section">
                 <div class="detail-label">Estimated Total</div>

@@ -1,0 +1,102 @@
+<div class="page-section checkout-section">
+  <div class="container py-5">
+    <div class="text-center mb-5">
+      <span class="section-label">Checkout</span>
+      <h2 class="section-title">Fresh Cart, Fast Delivery</h2>
+      <p class="section-sub mx-auto" style="max-width: 680px; text-align: center;">Confirm your order details, choose your delivery address, and place your order in a modern checkout experience.</p>
+    </div>
+
+    <div class="row gy-4">
+      <div class="col-12 col-xl-8">
+        <div class="product-card p-4">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+              <h3 class="product-name">Your Cart Items</h3>
+              <p class="product-farmer text-muted">A quick preview of everything in your basket.</p>
+            </div>
+            <div class="status-pending" style="padding: 8px 14px; border-radius: 999px; font-size: 0.8rem; letter-spacing: 0.6px;">Ready to checkout</div>
+          </div>
+
+          @for(item of cartItems(); track item.cartId){
+            <div class="cart-item-card">
+            <img class="cart-item-img" [src]="item?.productImage" alt="productImg">
+            <div class="cart-item-info">
+              <div class="cart-item-name">{{item.productName}}</div>
+              <div class="cart-item-farmer">By: {{item.farmerName}}</div>
+              <div class="d-flex flex-wrap gap-2 mt-2">
+                <span class="text-muted">{{item.quantity}} kg</span>
+                <span class="text-muted">Rs. {{item.pricePerKg}} / kg</span>
+              </div>
+            </div>
+            <div class="text-end">
+              <div class="cart-item-price">Rs. {{item.quantity * item.pricePerKg }}  </div>
+            </div>
+          </div>
+          }
+
+          
+
+          <div class="cart-summary mt-4">
+            <div class="cart-total-row"><span>Subtotal</span><strong>Rs. {{subTotal}}</strong></div>
+            <div class="cart-total-row"><span>Packaging</span><strong>Rs. {{packagingFee}}</strong></div>
+            <div class="cart-total-row"><span>Delivery</span><strong>Rs. {{DeliveryFee}}</strong></div>
+            <div class="cart-total-row" style="border-top:1px solid rgba(255,255,255,0.1); padding-top: 14px; margin-top: 14px;">
+              <span class="text-muted">Estimated arrival</span><span class="text-muted">Today by 7PM</span>
+            </div>
+            <div class="cart-grand-total mt-3 d-flex justify-content-between align-items-center">
+              <span>Grand Total</span>
+              <strong>Rs. {{total}}</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-xl-4">
+        <form [formGroup]="orderForm">
+             <div class="product-card p-4" style="background: linear-gradient(180deg, #ffffff 0%, #f8ffef 100%);">
+          <div class="mb-4">
+            <h3 class="product-name">Delivery Address</h3>
+            <p class="product-farmer text-muted">Fill in the address and place your final order.</p>
+          </div>
+
+          <!-- <div class="mb-3">
+            <label class="form-label-custom">Status</label>
+            <input type="text" class="form-control-custom" formControlName="status" value="Available" readonly>
+          </div> -->
+
+          <div class="mb-3">
+            <label class="form-label-custom">City</label>
+            <input type="text" class="form-control-custom" formControlName="city"  placeholder="Enter city">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label-custom">State</label>
+            <input type="text" class="form-control-custom" formControlName="state" placeholder="Enter state">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label-custom">Pincode</label>
+            <input type="text" class="form-control-custom" formControlName="pincode"  placeholder="Enter pincode">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label-custom">Address Line 1</label>
+            <input type="text" class="form-control-custom" formControlName="addressLine1" placeholder="House number, street, area">
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label-custom">Address Line 2</label>
+            <textarea class="form-control-custom" rows="4" formControlName="addressLine2" placeholder="Landmark, building, additional info"></textarea>
+          </div>
+
+          <div class="d-grid gap-2">
+            <button type="button" class="btn-hero-primary" (click)="placeOrder()">Place Final Order</button>
+            <button type="button" class="btn-hero-secondary">Save delivery address</button>
+          </div>
+        </div>
+        </form>
+       
+      </div>
+    </div>
+  </div>
+</div>

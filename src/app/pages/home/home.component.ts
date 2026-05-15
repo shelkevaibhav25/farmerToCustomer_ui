@@ -1,4 +1,4 @@
-import { AsyncPipe, DatePipe, LowerCasePipe, NgOptimizedImage, UpperCasePipe } from '@angular/common';
+import { AsyncPipe, DatePipe, LowerCasePipe, NgIf, NgOptimizedImage, UpperCasePipe } from '@angular/common';
 import { Component, inject, signal, Signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonImports } from '../../core/constants/CommonImports';
@@ -15,7 +15,7 @@ import { Icart } from '../../core/models/interfaces/order.intergace';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonImports.FORM_IMPORTS, AsyncPipe, DatePipe, NgOptimizedImage],
+  imports: [CommonImports.FORM_IMPORTS, AsyncPipe, DatePipe, NgOptimizedImage, NgIf],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -52,6 +52,7 @@ export class HomeComponent {
     this.getAllCategories();
     this.loadAllProducts();
     this.getAllFarmers();
+    
   }
 
   loadAllProducts(){
@@ -114,6 +115,7 @@ export class HomeComponent {
 
   openCartModel(product:IProduct){
     this.selectedCartProduct.set(product);
+     this.orderProductServ.addToCart$.next(true);
 
   }
 
@@ -125,7 +127,7 @@ export class HomeComponent {
     console.log("Product added to cart: ")
     const productObj: Icart = {
       cartId: 0,
-      customerId: this.userService.loggedInuser.roleId,
+      customerId: this.userService.loggedInuser.userId,
       farmerProductId: this.selectedCartProduct()?.farmerProductId ?? 0,
       quantity: this.cartQuantity,
       addedAt: new Date().toISOString()

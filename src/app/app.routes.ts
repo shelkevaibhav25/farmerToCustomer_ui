@@ -6,6 +6,7 @@ import { authguardGuard } from './core/guards/authguard.guard';
 import { MasterComponent } from './pages/master/master.component';
 import { FarmerProductComponent } from './pages/farmer-product/farmer-product.component';
 import { ProductMasterComponent } from './pages/product-master/product-master.component';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
 
 export const routes: Routes = [
     {
@@ -39,6 +40,11 @@ export const routes: Routes = [
     {
         path:'product-master',
         component:ProductMasterComponent,
+        canActivate:[authguardGuard]
+    },
+    {
+        path:'checkout',
+        component:CheckoutComponent,
         canActivate:[authguardGuard]
     }
 ];
